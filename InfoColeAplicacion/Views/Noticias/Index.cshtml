@@ -1,0 +1,63 @@
+﻿@model InfoColeAplicacion.Models.Paginador<InfoColeAplicacion.Models.Noticia>
+
+@{
+    ViewBag.Title = "Noticias";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("NUEVA", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Titulo
+        </th>
+        <th>
+            Descripcion
+        </th>
+        <th>
+            LinkNoticia
+        </th>
+        <th>
+            LinkImagen
+        </th>
+        <th>
+            Fecha de Publicacion
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Resultado)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Titulo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LinkNoticia)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.LinkImagen)
+        </td>
+        <td>
+            @String.Format("{0:d}", item.FechaPublicacion)
+        </td>
+        <td class="d-flex flex-column">
+            @Html.ActionLink("Editar", "Edit", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-success" })
+            @Html.ActionLink("Detalles", "Details", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-primary" })
+            @Html.ActionLink("Eliminar", "Delete", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+    }
+
+</table>
+
+
+
+
+@Html.Partial("_PartialPaginador") 

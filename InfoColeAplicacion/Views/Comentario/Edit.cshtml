@@ -1,0 +1,68 @@
+﻿@model InfoColeAplicacion.Models.Comentario
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "editComment" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+        @Html.HiddenFor(model => model.ApplicationUserId)
+        @Html.HiddenFor(model => model.Fecha)
+
+        <div class="modal-header head">
+            <h5 class="modal-title" id="exampleModalLabel">Editar comentario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+
+
+        <form>
+            @Html.HiddenFor(model => model.ApplicationUserId)
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <div class="checkbox">
+                            Queja:  @Html.RadioButtonFor(model => model.Tipo, "false")
+                            Información: @Html.RadioButtonFor(model => model.Tipo, "true")
+                            @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Contenido, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(model => model.Contenido, 4, 50, new { htmlAttributes = new { @class = "form-control textarea1" } })
+                            @Html.ValidationMessageFor(model => model.Contenido, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Editar" class="btn-success btn" id="btnSubmit" />
+                    <input type="button" value="Cancelar" class="btn-warning btn" onclick="location.href='@Url.Action("Index", "Comentario")'" />
+                </div>
+        </form>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Content/css")
+}
+<script>
+    $(document).ready(function () {
+        $.validator.unobtrusive.parse('#editComment');
+        $("#btnSubmit").click(function () {
+            if (!$("#editComment").valid()) {
+                return false;
+            }
+        });
+</script>

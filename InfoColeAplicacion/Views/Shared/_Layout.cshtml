@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - InfoCole</title>
+    <link rel="shortcut icon" href="~/Images/logo.ico">
+
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/css")
+
+</head>
+<body class="mt-0 pt-0" style="background-color: #dee1e3">
+    <div class="sticky-top row w-100 m-0" style="background-color: #03658c">
+        <div class="d-flex flex-row col-md-6">
+            <nav class="navbar" style="color:white">
+                <a class="navbar-brand">
+                    <img src="~/Images/logoBlanco.png" width="38" height="38" class="d-inline-block align-content-center align-items-center" style="text-align:center">
+                    <b>INFOCOLE</b>
+                </a>
+            </nav>
+        </div>
+        <div class="d-flex flex-row-reverse col-md-6 ">
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed" style="height: 9%; width:100%">
+            <a class="navbar-brand" href="/Home/Index">InfoCole </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+
+
+                    <li class="nav-item">
+                        <a class="nav-link fontColor-white" href="@Url.Action("Index", "Users")">Usuarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fontColor-white" href="@Url.Action("Index", "Noticias")">Noticias</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    }
+    else
+    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed" style="z-index:100; position: fixed; width:100%">
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Inicio</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Comentario")">Comentarios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Contact", "Home")">Noticia</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("About", "Home")">Acerca de Nosotros</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav float-right">
+                    @if (ViewBag.ID != null)
+                    {
+                        <li class="nav-item">
+                            @Html.ActionLink("Crear comentario", "Create", null, new { data_modal = "", @class = "nav-link" })
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Details", "Comentario")">Historial</a>
+                        </li>
+                    }
+                    else
+                    {
+                        if (ViewBag.Title == "Comentarios")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Login", "Account")">Crear comentario</a>
+                            </li>
+                        }
+                    }
+                </ul>
+</div>
+        </nav>
+    }
+
+
+    <div style="height: 70px"></div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Aplicacion de NussCreations</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/modalform")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+<div id="modalGenerica" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div id='contentModal'></div>
+        </div>
+    </div>
+</div>

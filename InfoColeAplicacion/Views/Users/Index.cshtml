@@ -1,0 +1,53 @@
+﻿@model InfoColeAplicacion.Models.Paginador<InfoColeAplicacion.Models.ApplicationUser>
+
+
+<h2>Usuarios</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Email
+        </th>
+
+        <th>
+            Nombre de usuario
+        </th>
+
+        <th>
+            Habilitado
+        </th>
+    </tr>
+
+@foreach (var item in Model.Resultado) {
+
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Habilitado)
+        </td>
+        <td>
+            @if (item.Habilitado)
+            {
+                @Html.ActionLink("Deshabilitar", "HabilitacionDeUsuario", new { habilitado = item.Habilitado,
+               id = item.Id }, new { @class = "btn btn-danger" });
+            }
+            else
+            {
+                @Html.ActionLink("Habilitar", "HabilitacionDeUsuario", new { habilitado = item.Habilitado,
+               id = item.Id}, new { @class = "btn btn-success" });
+            }
+            
+        </td>
+    </tr>
+}
+
+</table>
+
+@Html.Partial("_PartialPaginador")

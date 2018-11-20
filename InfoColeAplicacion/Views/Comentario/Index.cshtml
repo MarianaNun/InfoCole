@@ -1,0 +1,65 @@
+﻿@model IEnumerable<InfoColeAplicacion.Models.Comentario>
+@{
+    ViewBag.Title = "Comentarios";
+}
+
+<link href="~/Content/StyleComentarios.css" rel="stylesheet" />
+<body style="padding-top:140px" class="position-sticky">
+    <div class="form-group">
+        <h2>@ViewBag.Title</h2>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <ul id="comments-list" class="comments-list">
+            <div class="comment-main-level">
+                <!-- Avatar -->
+                <div class="comment-avatar">
+                    <img src="~/Images/Comentario/usuario.png" alt="">
+                </div>
+                <!-- Contenedor del Comentario -->
+                <div class="comment-box">
+                    <div class="comment-head" style="background: #03658c">
+                        <h5 class="comment-name by-author" style="color: #dee1e3">@Html.DisplayFor(modelItem => item.User.UserName)</h5>
+                        <span>
+                            @if (DateTime.Now.Date == item.Fecha.Date)
+                            {
+                                @Html.DisplayFor(modelItem => item.Fecha)
+                            }
+                            else
+                            {
+                                @String.Format("{0:d}", item.Fecha)
+                            }
+                        </span>
+                        @if (item.ApplicationUserId == ViewBag.ID)
+                        {
+                            <div class="float-right row mr-1">
+                                <span class="badge badge-warning mr-1">
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "" , @style = "color: white;" })
+                                </span>
+                                <span class="badge badge-danger">
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
+                                </span>
+                            </div>
+                        }
+                    </div>
+                    <div class="comment-content">
+                        @Html.DisplayFor(modelItem => item.Contenido)
+                    </div>
+                    <div class="comment-head" style="font-size: small">
+                        @if (item.Tipo)
+                        {
+                            <p class="card-text text-right">Tipo: Información</p>
+                        }
+                        else
+                        {
+                            <p class="card-text text-right">Tipo: Queja</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </ul>
+    }
+</body>
+
+@Scripts.Render("~/bundles/modalform")

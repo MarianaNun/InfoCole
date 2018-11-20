@@ -1,0 +1,15 @@
+﻿.elements {
+    border-radius : 0px;
+}
+
+.bg-color-principal {
+    background-color: #03658c;
+}
+
+.fontColor-white{
+    color : white;
+}
+
+    a.fontColor-white:hover {
+        color: white;
+    }

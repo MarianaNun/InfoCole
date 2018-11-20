@@ -1,0 +1,39 @@
+﻿@*<div style="height: 70px"></div>
+    @{
+        ViewBag.Title = "Contact";
+    }
+    <h2>@ViewBag.Title.</h2>
+    <h3>@ViewBag.Message</h3>
+
+    <address>
+        One Microsoft Way<br />
+        Redmond, WA 98052-6399<br />
+        <abbr title="Phone">P:</abbr>
+        425.555.0100
+    </address>
+
+    <address>
+        <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
+        <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    </address>*@
+@model IEnumerable<InfoColeAplicacion.Models.Noticia>
+    <h3>Lo que necesitas saber antes de salir de casa</h3>
+<hr />
+@foreach (var item in Model)
+{
+    <div style="border-bottom-style:solid; border-bottom:medium; border-bottom-color:blue; background-color: white" class="row mb-2">
+        <div class="float-left col-md-3 ml-0 pl-0">
+            <img src=@Html.DisplayFor(model => item.LinkImagen) width="250" height="150">
+        </div>
+        <div class="float-right col-md-9">
+            <div>
+                <a href=@Html.DisplayFor(model => item.LinkNoticia) style="font-size: 25px" target="_blank">@Html.DisplayFor(model => item.Titulo)</a>
+                
+            </div>
+            <div>
+                <span style="color: gray">@Html.DisplayFor(model => item.FechaPublicacion)</span> |
+                @Html.DisplayFor(model => item.Descripcion)
+            </div>
+        </div>
+    </div>
+}

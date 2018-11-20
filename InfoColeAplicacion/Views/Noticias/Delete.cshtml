@@ -1,0 +1,56 @@
+﻿@model InfoColeAplicacion.Models.Noticia
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>ELIMINAR</h2>
+
+<h3>Seguro que desea eliminar el registro?</h3>
+<div>
+    <h4>Noticia</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Titulo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Titulo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkNoticia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkNoticia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkImagen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkImagen)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("VOLVER", "Index")
+        </div>
+    }
+</div>

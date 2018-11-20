@@ -1,0 +1,126 @@
+﻿@model IList<InfoColeAplicacion.Models.Noticia>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="item active carousel-item">
+                        <div class="card-deck">
+                            @*@for (var i = 0; i < 3; i++)*@
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[0].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[0].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[0].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[0].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[1].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[1].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[1].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[1].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[2].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[2].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[2].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[2].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--.item-->
+                    <div class="item carousel-item">
+                        <div class="card-deck">
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[3].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[3].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[3].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[3].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[4].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[4].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[4].Descripcion)</p>
+                                </div>
+                                <div class="card-body  text-center">
+                                    <a href=@Html.DisplayFor(model => model[4].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[5].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[5].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[5].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[5].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--.item-->
+                    <div class="item carousel-item">
+                        <div class="card-deck">
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[6].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[6].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[6].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[6].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[7].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[7].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[7].Descripcion)</p>
+                                </div>
+                                <div class="card-body  text-center">
+                                    <a href=@Html.DisplayFor(model => model[7].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                            <div class="card" style="border:none">
+                                <img class="card-img-top" src=@Html.DisplayFor(model => model[8].LinkImagen) width="400" height="300">
+                                <div class="card-body">
+                                    <h6 class="card-title"> @Html.DisplayFor(model => model[8].Titulo)</h6>
+                                    <p class="card-text">@Html.DisplayFor(model => model[8].Descripcion)</p>
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href=@Html.DisplayFor(model => model[8].LinkNoticia) class="btn btn-primary btn-sm" target="_blank">Leer más</a>
+                                </div>
+                            </div>
+                        </div>
+                    <!--.item-->
+                </div>
+                <!--.carousel-inner-->
+                <a data-slide="prev" href="#carouselExampleFade" class="left carousel-control float-left" role="button">&#x2039;</a>
+                <a data-slide="next" href="#carouselExampleFade" class="right carousel-control float-right" role="button">&#x203A;</a>
+
+            </div>
+            <!--.Carousel-->
+        </div>
+    </div>
+</div>
+
+

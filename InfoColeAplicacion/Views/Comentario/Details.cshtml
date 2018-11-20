@@ -1,0 +1,49 @@
+﻿@model IEnumerable<InfoColeAplicacion.Models.Comentario>
+@{
+                /**/
+
+                /**/
+
+                ViewBag.Title = "Historial";
+}
+
+<h2>Historial</h2>
+<div class="container" style="width:90%">
+    @foreach (var item in Model)
+    {
+        <div class="card mb-3" style="width: 100%">
+            <div class="card-header" style="background-color: #03658c ; color: white">
+                <div class="float-left">
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </div>
+                <div class="float-right">
+                    @if (item.Tipo)
+                    {
+                        <h5 style="color: white ; font-size: medium">Noticia</h5>
+                    }
+                    else
+                    {
+                        <h5 style="color: white; font-size: medium">Queja</h5>
+                    }
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Html.DisplayFor(modelItem => item.Contenido)</p>
+            </div>
+            <div class="card-footer">
+                <div class="row" style="text-align:center; justify-content:center">
+                    <span class="badge badge-danger mr-1">
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
+                    </span>
+                    <span class="badge badge-warning">
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+@Scripts.Render("~/bundles/modalform")
+
