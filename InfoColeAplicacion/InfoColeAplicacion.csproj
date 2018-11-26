@@ -216,8 +216,11 @@
     <Compile Include="Controllers\ComentarioController.cs" />
     <Compile Include="Controllers\EspacioInteraccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LineasController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NoticiasController.cs" />
+    <Compile Include="Controllers\PuntoMapaController.cs" />
+    <Compile Include="Controllers\TipoPuntoMapasController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,6 +277,18 @@
     <Compile Include="Migrations\201811132254141_CamposDeNoticaAjustados.Designer.cs">
       <DependentUpon>201811132254141_CamposDeNoticaAjustados.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811261930496_PuntosRutas.cs" />
+    <Compile Include="Migrations\201811261930496_PuntosRutas.Designer.cs">
+      <DependentUpon>201811261930496_PuntosRutas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811262056024_PuntosRutas2.cs" />
+    <Compile Include="Migrations\201811262056024_PuntosRutas2.Designer.cs">
+      <DependentUpon>201811262056024_PuntosRutas2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811262130124_PuntosRutas3.cs" />
+    <Compile Include="Migrations\201811262130124_PuntosRutas3.Designer.cs">
+      <DependentUpon>201811262130124_PuntosRutas3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comentario.cs" />
@@ -282,9 +297,14 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Noticia.cs" />
     <Compile Include="Models\Paginador.cs" />
+    <Compile Include="Models\PuntoMapa.cs" />
+    <Compile Include="Models\PuntoRuta.cs" />
     <Compile Include="Models\Ramal.cs" />
+    <Compile Include="Models\Ruta.cs" />
+    <Compile Include="Models\TipoPuntoMapa.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LineaViewModel.cs" />
     <Compile Include="ViewModels\NoticaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -410,6 +430,18 @@
     <Content Include="Views\Noticias\Edit.cshtml" />
     <Content Include="Views\Noticias\Index.cshtml" />
     <Content Include="Views\Noticias\List.cshtml" />
+    <Content Include="Views\Lineas\Create.cshtml" />
+    <Content Include="Views\Lineas\Delete.cshtml" />
+    <Content Include="Views\Lineas\Details.cshtml" />
+    <Content Include="Views\Lineas\Edit.cshtml" />
+    <Content Include="Views\Lineas\Index.cshtml" />
+    <Content Include="Views\PuntoMapa\Index.cshtml" />
+    <Content Include="Views\PuntoMapa\Create.cshtml" />
+    <Content Include="Views\TipoPuntoMapas\Create.cshtml" />
+    <Content Include="Views\TipoPuntoMapas\Delete.cshtml" />
+    <Content Include="Views\TipoPuntoMapas\Details.cshtml" />
+    <Content Include="Views\TipoPuntoMapas\Edit.cshtml" />
+    <Content Include="Views\TipoPuntoMapas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -460,6 +492,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811132254141_CamposDeNoticaAjustados.resx">
       <DependentUpon>201811132254141_CamposDeNoticaAjustados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811261930496_PuntosRutas.resx">
+      <DependentUpon>201811261930496_PuntosRutas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811262056024_PuntosRutas2.resx">
+      <DependentUpon>201811262056024_PuntosRutas2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811262130124_PuntosRutas3.resx">
+      <DependentUpon>201811262130124_PuntosRutas3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
