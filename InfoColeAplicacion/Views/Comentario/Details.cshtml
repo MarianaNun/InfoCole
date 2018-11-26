@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<InfoColeAplicacion.Models.Comentario>
 @{
-                /**/
+    /**/
 
-                /**/
+    /**/
 
-                ViewBag.Title = "Historial";
+    ViewBag.Title = "Historial";
 }
-
 <h2>Historial</h2>
 <div class="container" style="width:90%">
     @foreach (var item in Model)
@@ -32,18 +31,18 @@
             </div>
             <div class="card-footer">
                 <div class="row" style="text-align:center; justify-content:center">
-                    <span class="badge badge-danger mr-1">
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
-                    </span>
-                    <span class="badge badge-warning">
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
-                    </span>
+                    <button class="m-1">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:darkgreen"></i>
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: black;" })
+                    </button>
+                    <button class="m-1">
+                        <i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i>
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: black;" })
+                    </button>
                 </div>
-
             </div>
         </div>
     }
 </div>
-
 @Scripts.Render("~/bundles/modalform")
-
+<link href="~/Content/font-awesome.css" rel="stylesheet" />

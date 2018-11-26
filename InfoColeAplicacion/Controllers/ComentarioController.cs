@@ -42,7 +42,9 @@ namespace InfoColeAplicacion.Controllers
                 var ID = User.Identity.GetUserId();
                 ViewBag.ID = ID;
             }
-            var comentario = from c in db.Comentarios select c;
+            var comentario = from c in db.Comentarios
+                             //where (c.User.Habilitado)
+                             select c;
 
             comentario = comentario.OrderByDescending(c => c.Fecha);
 
