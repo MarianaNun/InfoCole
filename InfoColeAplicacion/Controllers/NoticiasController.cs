@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using InfoColeAplicacion.Models;
+using InfoColeAplicacion.ViewModels;
 
 namespace InfoColeAplicacion.Controllers
 {
@@ -15,25 +16,26 @@ namespace InfoColeAplicacion.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
         private readonly int RegistrosPorPagina = 2;
         
-        private Paginador<Noticia> Paginador;
+        private Paginador<NoticiaViewModel> Paginador;
 
         // Listado Para Administradores
         [Authorize(Roles ="Admin")]
         public ActionResult Index(int pagina = 1)
         {
-
-            
-
             int TotalNoticias = 0;
             TotalNoticias = db.Noticias.Count();
-            List<Noticia> Noticias = db.Noticias.OrderByDescending(n => n.FechaPublicacion)
+            List<NoticiaViewModel> Noticias = db.Noticias.OrderByDescending(n => n.FechaPublicacion)
                                            .Skip((pagina - 1) * RegistrosPorPagina)
-                                           .Take(RegistrosPorPagina)
-                                           .ToList();
+                                           .Take(RegistrosPorPagina).Select(n => new NoticiaViewModel
+                                           {
+                                               NoticiaId = n.NoticiaId,
+                                               Titulo = n.Titulo,
+                                               FechaPublicacion = n.FechaPublicacion
+                                           }).ToList();
 
             var totalDePaginas = (int)Math.Ceiling((double) TotalNoticias / RegistrosPorPagina);
 
-            Paginador = new Paginador<Noticia>()
+            Paginador = new Paginador<NoticiaViewModel>()
             {
                 RegistrosPorPagina = RegistrosPorPagina,
                 TotalRegistros = TotalNoticias,
@@ -41,14 +43,20 @@ namespace InfoColeAplicacion.Controllers
                 PaginaActual = pagina,
                 Resultado = Noticias
             };
-                    
+            try
+            {
+                ViewBag.Mensaje = TempData["mensaje"].ToString();
+            }
+            catch(Exception ex)
+            {
+                ViewBag.Mensaje = "";
+                return View(Paginador);
+            }
+            
             return View(Paginador);
            
         }
 
-        //Vista para la seccion de noticias que ve el usuario
-        //Creo conveniente que se use una vista con listado distinto para el usuario, ya que el usuario tendra mejores estilos
-        //Y en la parte administrador alcanza con usar una tabla
         public ActionResult List()
         {
 
@@ -81,6 +89,15 @@ namespace InfoColeAplicacion.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
+            try
+            {
+                ViewBag.Mensaje = TempData["mensaje"].ToString();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = "";
+                return View();
+            }
             return View();
         }
 
@@ -94,11 +111,25 @@ namespace InfoColeAplicacion.Controllers
         {
             if (ModelState.IsValid)
             {
-                noticia.FechaPublicacion = DateTime.Now;
-                db.Noticias.Add(noticia);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                try
+                {
+                    noticia.FechaPublicacion = DateTime.Now;
+                    db.Noticias.Add(noticia);
+                    db.SaveChanges();
+                    TempData["mensaje"] = "LA NOTICIA SE CREO CON EXITO";
+                    ViewBag.Mensaje = TempData["mensaje"];
+                    return RedirectToAction("Index");
+                }
+                catch(Exception ex)
+                {
+                    TempData["mensaje"] = "SE HA PRODUCIDO UN ERROR, INTENTE NUEVAMENTE";
+                    ViewBag.Mensaje = TempData["mensaje"];
+                    return View(noticia);
+                }
             }
+
+
 
             return View(noticia);
         }
@@ -116,11 +147,19 @@ namespace InfoColeAplicacion.Controllers
             {
                 return HttpNotFound();
             }
+            try
+            {
+                ViewBag.Mensaje = TempData["mensaje"].ToString();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Mensaje = "";
+                return View(noticia);
+            }
             return View(noticia);
         }
 
-        // POST: Noticias/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,10 +168,22 @@ namespace InfoColeAplicacion.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(noticia).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.Entry(noticia).State = EntityState.Modified;
+                    db.SaveChanges();
+                    TempData["mensaje"] = "LA NOTICIA SE EDITO CON EXITO";
+                    ViewBag.Mensaje = TempData["mensaje"];
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    TempData["mensaje"] = "SE HA PRODUCIDO UN ERROR, INTENTE NUEVAMENTE";
+                    ViewBag.Mensaje = TempData["mensaje"];
+                    return View(noticia);
+                }
             }
+
             return View(noticia);
         }
 
@@ -161,9 +212,20 @@ namespace InfoColeAplicacion.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Noticia noticia = db.Noticias.Find(id);
-            db.Noticias.Remove(noticia);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {               
+                db.Noticias.Remove(noticia);
+                db.SaveChanges();
+                TempData["mensaje"] = "LA NOTICIA SE ELIMINO CON EXITO";
+                ViewBag.Mensaje = TempData["mensaje"];
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                TempData["mensaje"] = "SE HA PRODUCIDO UN ERROR, INTENTE NUEVAMENTE";
+                ViewBag.Mensaje = TempData["mensaje"];
+                return View(noticia);
+            }
         }
 
         protected override void Dispose(bool disposing)
