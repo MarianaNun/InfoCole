@@ -1,0 +1,171 @@
+﻿
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-8">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control elements" id="nombre" placeholder="">
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" class="form-control elements" id="descripcion" placeholder="">
+        </div>
+
+        <label>Tipo de punto</label>
+        @Html.DropDownList("Tipos", (List<SelectListItem>)ViewBag.Tipos, htmlAttributes: new { @id = "tipo", @class = "form-control elements" })
+
+        @Html.ActionLink("Agregar punto", "Create", null, new { @class = "btn btn-success btn-lg btn-block elements" })
+        <button id="editar" disabled class="btn btn-primary btn-lg btn-block elements">Editar punto</button>
+        <button id="borrar" disabled class="btn btn-danger btn-lg btn-block elements">Borrar punto</button>
+        <button id="cancelar" disabled class="btn btn-danger btn-lg btn-block elements">Cancelar</button>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+<script>
+    var map;
+    var marker = [];
+    var selectedMarker = {};
+
+    function initMap() {
+        var startPos;
+
+        var geoSuccess  = function (position) {
+            startPos = position;
+            console.log(startPos);
+            map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 16, center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude } });
+
+
+            var url = "@Url.Action("GetLocations", "PuntoMapa")";
+            $.get(url).done(
+                function (data, status) {
+                    //console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        let latitud = parseFloat(data[i].Lat);
+                        let longitud = parseFloat(data[i].Long);
+                        var punto = new google.maps.Marker({
+                            position: { lat: latitud, lng: longitud },
+                            title: data[i].Nombre,
+                            map: map
+                        });
+                        var puntoId = data[i].PuntoMapaId;
+                        var tipo = data[i].TipoPuntoMapaId;
+                        var nombre = data[i].Nombre;
+                        var descripcion = data[i].Descripcion;
+                        console.log(data[i].Tipo);
+                        
+                        google.maps.event.addListener(punto, 'click', (function (punto, puntoId,nombre,tipo,descripcion) {
+                            return function () {
+                                punto.setDraggable(true);
+                                selectedMarker.Nombre = nombre;
+                                selectedMarker.PuntoMapaId = puntoId;
+                                selectedMarker.TipoPuntoMapaId = tipo;
+                                console.log(selectedMarker.Tipo);
+                                selectedMarker.Marker = punto;
+
+                                $('#nombre').val(selectedMarker.Nombre);
+                                $('#tipo').val(selectedMarker.TipoPuntoMapaId);
+                                $('#descripcion').val(descripcion);
+                                $('#editar').removeAttr("disabled");
+                                $('#borrar').removeAttr("disabled");
+                                $('#cancelar').removeAttr("disabled");
+                            }
+
+                        })(punto, puntoId, nombre, tipo, descripcion));
+                    }
+
+                }
+            ).fail(
+                function () {
+                    alert("Ajax call failed");
+                }
+            );
+
+        }
+
+        navigator.geolocation.getCurrentPosition(geoSuccess);
+
+        $('#editar').click(function (e) {
+
+            var url = "@Url.Action("EditarPunto", "PuntoMapa")";
+            var punto = {};
+            punto.PuntoMapaId = selectedMarker.PuntoMapaId;
+            punto.Nombre = selectedMarker.Nombre;
+            punto.Long = selectedMarker.Marker.position.lng();
+            punto.Lat = selectedMarker.Marker.position.lat();         
+            punto.TipoPuntoMapaId = $('#tipo').val() * 1;
+            punto.Descripcion = $('#descripcion').val();
+            $.post(url, punto).done(
+                function (mensaje) {
+                    selectedMarker.Marker.setDraggable(false);
+                    selectedMarker = {};
+                    LimpiarCampos();
+                    $('#editar').attr('disabled', 'disabled');
+                    $('#borrar').attr('disabled', 'disabled');
+                    $('#cancelar').attr('disabled', 'disabled');
+                    alert(mensaje);
+                }
+            ).fail(
+                function () {
+                    alert("Ajax call failed");
+                }
+            );
+        })
+
+        $('#borrar').click(function (e) {
+            console.log(selectedMarker.Nombre);
+            var url = "@Url.Action("Delete", "PuntoMapa")";
+
+            var id = {};
+            id.id = 0;
+            id.id = selectedMarker.PuntoMapaId;
+
+            console.log(id.id);
+            $.post(url, id).done(
+                function (mensaje) {
+                    selectedMarker.Marker.setMap(null);
+                    selectedMarker = {};
+                    $('#borrar').attr('disabled', 'disabled');
+                    $('#editar').attr('disabled', 'disabled');
+                    $('#cancelar').attr('disabled', 'disabled');
+                    alert(mensaje);
+                }
+            ).fail(
+                function () {
+                    alert("Ajax call failed");
+                }
+            );
+        })
+
+        $('#cancelar').click(function (e) {
+            selectedMarker.Marker.setDraggable(false);
+            selectedMarker = {};
+            $('#editar').attr('disabled', 'disabled');
+            $('#borrar').attr('disabled', 'disabled');
+            $('#cancelar').attr('disabled', 'disabled');
+
+        })
+    }
+    function LimpiarCampos() {
+        $('#nombre').val('');
+        $('#descripcion').val('');
+
+    }
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4I8iAS4V_drotpXRjk1RjRZsAuKhxqU&callback=initMap">
+
+</script>

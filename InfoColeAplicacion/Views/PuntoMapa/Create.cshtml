@@ -1,0 +1,140 @@
+﻿@model InfoColeAplicacion.Models.PuntoMapa
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    // @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control elements" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control elements" } })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.TipoPuntoMapaId, (List<SelectListItem>)ViewBag.Tipos, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="submit" value="Crear" class="btn btn-success elements" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Volver al listado", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+
+        var map;
+        var marker;
+        var startPosition = {};
+        startPosition.Lat = 0.0;
+        startPosition.Long = 0.0;
+        
+        //Inicia el mapa
+        function initScript() {
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                this.startPosition.Lat = position.coords.latitude;
+                this.startPosition.Long = position.coords.longitude;
+
+                var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+                initMap(position);
+            });         
+        }
+
+        //Inicia el mapa y establece su posicion inicial
+        function initMap(position) {
+            map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 16, center: position });
+
+            map.addListener('click', function (event) {
+                placeMarker(event.latLng);
+            });
+        }
+
+
+        //Llamada ajax al metodo de crear
+        $("#submit").click(function (e) {
+            e.preventDefault();
+
+            //var token = $('input[name=__RequestVerificationToken]').val();
+            let latitud = marker.position.lat();
+            let longitud = marker.position.lng();
+            var point = {
+                Nombre: $("#Nombre").val()
+            };
+            point.Lat = latitud;
+            point.Long = longitud;
+            point.Descripcion = $("#Descripcion").val();
+            point.TipoPuntoMapaId = $('#TipoPuntoMapaId').val() * 1;
+
+            var url = "@Url.Action("Create", "PuntoMapa")";
+            $.post(url, point).done(
+                function (mensaje) {
+                    alert(mensaje);
+                }
+            ).fail(
+                function () {
+                    alert("Ajax call failed");
+                }
+            );
+
+        })
+
+
+        //Crea el punto donde se produce el click en el mapa
+        function placeMarker(location) {
+            marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+
+
+        }
+
+
+    </script>
+
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4I8iAS4V_drotpXRjk1RjRZsAuKhxqU&callback=initScript">
+    </script>
+}
+
