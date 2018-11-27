@@ -8,8 +8,8 @@ namespace InfoColeAplicacion.Models
         [Required]
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
+
         [Display(Name = "Nombre de Usuario")]
-        [RegularExpression(@"^(@)$", ErrorMessage = "No es un email válido.")]
         public string UserName { get; set; }
     }
 

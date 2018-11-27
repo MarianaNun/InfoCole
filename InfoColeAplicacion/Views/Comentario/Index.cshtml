@@ -2,13 +2,11 @@
 @{
     ViewBag.Title = "Comentarios";
 }
-
 <link href="~/Content/StyleComentarios.css" rel="stylesheet" />
 <body style="padding-top:140px" class="position-sticky">
     <div class="form-group">
-        <h2>@ViewBag.Title</h2>
+        <h2>De lo que se está hablando</h2>
     </div>
-
     @foreach (var item in Model)
     {
         <ul id="comments-list" class="comments-list">
@@ -20,31 +18,81 @@
                 <!-- Contenedor del Comentario -->
                 <div class="comment-box">
                     <div class="comment-head" style="background: #03658c">
-                        <h5 class="comment-name by-author" style="color: #dee1e3">@Html.DisplayFor(modelItem => item.User.UserName)</h5>
-                        <span>
-                            @if (DateTime.Now.Date == item.Fecha.Date)
+                        @if (!item.User.Habilitado)
+                        {
+                            <h5 class="comment-name by-author" style="color: #ff4600">Usuario bloqueado</h5>
+                        }
+                        else
+                        {
+                            <h5 class="comment-name by-author" style="color: #dee1e3">@Html.DisplayFor(modelItem => item.User.UserName)</h5>
+                        }
+                        @{
+                            int days = DateTime.Now.Subtract(item.Fecha).Days;
+                            if (days < 1)
                             {
-                                @Html.DisplayFor(modelItem => item.Fecha)
+                                int hours = DateTime.Now.Subtract(item.Fecha).Hours;
+                                if (hours < 1)
+                                {
+                                    int minutes = DateTime.Now.Subtract(item.Fecha).Minutes;
+                                    if (minutes < 1)
+                                    {
+                                        ViewBag.Dias = "Hace un momento";
+                                    }
+                                    else
+                                    {
+                                        ViewBag.Dias = "Hace " + minutes + " minutos";
+                                    }
+                                }
+                                else
+                                {
+                                    ViewBag.Dias = "Hace " + hours + "horas";
+                                }
+                            }
+                            else if ((days >= 1) && (DateTime.Now.Month == item.Fecha.Month))
+                            {
+                                ViewBag.Dias = "Hace " + days + " dias";
                             }
                             else
                             {
-                                @String.Format("{0:d}", item.Fecha)
+                                if (DateTime.Now.Year == item.Fecha.Year)
+                                {
+                                    int month = DateTime.Now.Month - item.Fecha.Month;
+                                    ViewBag.Dias = "Hace " + month + " meses";
+                                }
+                                else
+                                {
+                                    int year = DateTime.Now.Year - item.Fecha.Year;
+                                    ViewBag.Dias = "Hace " + year + " Años";
+                                }
                             }
+
+                        }
+                        <span>
+                            @ViewBag.Dias
                         </span>
                         @if (item.ApplicationUserId == ViewBag.ID)
                         {
                             <div class="float-right row mr-1">
                                 <span class="badge badge-warning mr-1">
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "" , @style = "color: white;" })
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
+                                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:black"></i>
                                 </span>
                                 <span class="badge badge-danger">
-                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white;" })
+                                    @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
+                                    <i class="fa fa-trash-o" aria-hidden="true" style="color:black"></i>
                                 </span>
                             </div>
                         }
                     </div>
                     <div class="comment-content">
-                        @Html.DisplayFor(modelItem => item.Contenido)
+                        @if (!item.User.Habilitado)
+                        {
+                            <strike>@Html.DisplayFor(modelItem => item.Contenido)</strike>
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.Contenido)
+                        }
                     </div>
                     <div class="comment-head" style="font-size: small">
                         @if (item.Tipo)
@@ -61,5 +109,5 @@
         </ul>
     }
 </body>
-
 @Scripts.Render("~/bundles/modalform")
+<link href="~/Content/font-awesome.css" rel="stylesheet" />

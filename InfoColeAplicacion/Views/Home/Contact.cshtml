@@ -17,23 +17,36 @@
         <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
     </address>*@
 @model IEnumerable<InfoColeAplicacion.Models.Noticia>
-    <h3>Lo que necesitas saber antes de salir de casa</h3>
+<h3>Lo que necesitas saber antes de salir de casa</h3>
 <hr />
-@foreach (var item in Model)
-{
-    <div style="border-bottom-style:solid; border-bottom:medium; border-bottom-color:blue; background-color: white" class="row mb-2">
-        <div class="float-left col-md-3 ml-0 pl-0">
-            <img src=@Html.DisplayFor(model => item.LinkImagen) width="250" height="150">
-        </div>
-        <div class="float-right col-md-9">
-            <div>
-                <a href=@Html.DisplayFor(model => item.LinkNoticia) style="font-size: 25px" target="_blank">@Html.DisplayFor(model => item.Titulo)</a>
-                
-            </div>
-            <div>
-                <span style="color: gray">@Html.DisplayFor(model => item.FechaPublicacion)</span> |
+<div class="card-columns">
+    @foreach (var item in Model)
+    {
+        @*<div style="border-bottom-style:solid; border-bottom:medium; border-bottom-color:blue; background-color: white" class="row mb-2">
+                <div class="float-left col-md-3 ml-0 pl-0">
+                    <img src=@Html.DisplayFor(model => item.LinkImagen) width="250" height="150">
+                </div>
+                <div class="float-right col-md-9">
+                    <div>
+
+
+                    </div>
+                    <div>
+                        <span style="color: gray">@Html.DisplayFor(model => item.FechaPublicacion)</span> |
+                        @Html.DisplayFor(model => item.Descripcion)
+                    </div>
+                </div>
+            </div>*@
+
+
+        <div class="card">
+            <img class="card-img-top" src=@Html.DisplayFor(model => item.LinkImagen) alt="Card image cap">
+            <div class="card-body">
+                <a href=@Html.DisplayFor(model => item.LinkNoticia) style="font-size: 25px" target="_blank">@Html.DisplayFor(model => item.Titulo)</a><br />
+                <span style="color: gray">@String.Format("{0:d}", item.FechaPublicacion)</span> |
                 @Html.DisplayFor(model => item.Descripcion)
             </div>
         </div>
-    </div>
-}
+
+    }
+</div>
