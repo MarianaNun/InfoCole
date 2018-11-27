@@ -762,3 +762,6 @@ D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicaci
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.csproj.CopyComplete
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.dll
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.pdb
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas2.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas3.resources

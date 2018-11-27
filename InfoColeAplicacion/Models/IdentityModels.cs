@@ -40,7 +40,9 @@ namespace InfoColeAplicacion.Models
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Comentario> Comentarios { get; set; }
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Linea> Lineas { get; set; }
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Ramal> Ramales { get; set; }
-
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.TipoPuntoMapa> TiposPuntoMapa { get; set; }
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.PuntoMapa> Puntos { get; set; }
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Noticia> Noticias { get; set; }
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Ruta> Rutas { get; set; }
     }
 }

@@ -1,61 +1,59 @@
-﻿@model InfoColeAplicacion.Models.Paginador<InfoColeAplicacion.Models.Noticia>
+﻿@model InfoColeAplicacion.Models.Paginador<InfoColeAplicacion.ViewModels.NoticiaViewModel>
+
 
 @{
-    ViewBag.Title = "Noticias";
+    ViewBag.Title = "Listado de Noticias";
+    if (ViewBag.Mensaje != "")
+    {
+<div class="col-md-12">
+    <div class="alert alert-success alert-dismissible elements">
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4>@ViewBag.Mensaje</h4>
+    </div>
+</div>
+    }
 }
 
-<h2>@ViewBag.Title</h2>
+<h2 class="h2 display-3">@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("NUEVA", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+    @Html.ActionLink("NUEVA", "Create", null, htmlAttributes: new { @class = "btn btn-success elements" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            Titulo
-        </th>
-        <th>
-            Descripcion
-        </th>
-        <th>
-            LinkNoticia
-        </th>
-        <th>
-            LinkImagen
-        </th>
-        <th>
-            Fecha de Publicacion
-        </th>
-    </tr>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                Titulo
+            </th>
 
-    @foreach (var item in Model.Resultado)
-    {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Titulo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LinkNoticia)
-        </td>
+            <th>
+                Fecha de Publicacion
+            </th>
+        </tr>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.LinkImagen)
-        </td>
-        <td>
-            @String.Format("{0:d}", item.FechaPublicacion)
-        </td>
-        <td class="d-flex flex-column">
-            @Html.ActionLink("Editar", "Edit", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-success" })
-            @Html.ActionLink("Detalles", "Details", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Eliminar", "Delete", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-    }
+        @foreach (var item in Model.Resultado)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
 
-</table>
+                <td>
+                    @String.Format("{0:d}", item.FechaPublicacion)
+                </td>
+                <td class="d-flex flex-column">
+                    @Html.ActionLink("Editar", "Edit", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-success elements" })
+                    @Html.ActionLink("Detalles", "Details", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-primary elements" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.NoticiaId }, htmlAttributes: new { @class = "btn btn-danger elements" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
 
 
 

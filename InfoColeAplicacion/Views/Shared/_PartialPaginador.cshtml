@@ -6,13 +6,14 @@
     if (Model.PaginaActual > radio + 1)
     {
         Inicial = Model.PaginaActual - radio;
-        if(Model.TotalPaginas > Model.PaginaActual + radio){
+        if(Model.TotalPaginas > Model.PaginaActual + radio)
+        {
             Final = Model.PaginaActual + radio;
         }
-else
-    {
+        else
+        {
         Final = Model.TotalPaginas;
-    }
+        }
 
     }
 
