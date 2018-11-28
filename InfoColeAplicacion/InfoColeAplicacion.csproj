@@ -213,6 +213,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AlertasController.cs" />
     <Compile Include="Controllers\ComentarioController.cs" />
     <Compile Include="Controllers\EspacioInteraccionController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -289,9 +290,39 @@
     <Compile Include="Migrations\201811262130124_PuntosRutas3.Designer.cs">
       <DependentUpon>201811262130124_PuntosRutas3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811270330142_Alertas.cs" />
+    <Compile Include="Migrations\201811270330142_Alertas.Designer.cs">
+      <DependentUpon>201811270330142_Alertas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811272004184_TipoAlerta.cs" />
+    <Compile Include="Migrations\201811272004184_TipoAlerta.Designer.cs">
+      <DependentUpon>201811272004184_TipoAlerta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811272006245_AlertaTransito.cs" />
+    <Compile Include="Migrations\201811272006245_AlertaTransito.Designer.cs">
+      <DependentUpon>201811272006245_AlertaTransito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811272022411_AlertaTransitoLista.cs" />
+    <Compile Include="Migrations\201811272022411_AlertaTransitoLista.Designer.cs">
+      <DependentUpon>201811272022411_AlertaTransitoLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811272146026_AlertaTransitoL.cs" />
+    <Compile Include="Migrations\201811272146026_AlertaTransitoL.Designer.cs">
+      <DependentUpon>201811272146026_AlertaTransitoL.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811280148381_Dropdown.cs" />
+    <Compile Include="Migrations\201811280148381_Dropdown.Designer.cs">
+      <DependentUpon>201811280148381_Dropdown.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811280206568_DropdownList.cs" />
+    <Compile Include="Migrations\201811280206568_DropdownList.Designer.cs">
+      <DependentUpon>201811280206568_DropdownList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Alerta.cs" />
     <Compile Include="Models\Comentario.cs" />
+    <Compile Include="Models\EstadoLinea.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Linea.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -301,7 +332,10 @@
     <Compile Include="Models\PuntoRuta.cs" />
     <Compile Include="Models\Ramal.cs" />
     <Compile Include="Models\Ruta.cs" />
+    <Compile Include="Models\TipoAlerta.cs" />
     <Compile Include="Models\TipoPuntoMapa.cs" />
+    <Compile Include="Models\Transito.cs" />
+    <Compile Include="Models\TransitoViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\LineaViewModel.cs" />
@@ -450,6 +484,8 @@
     <Content Include="Views\TipoPuntoMapas\Details.cshtml" />
     <Content Include="Views\TipoPuntoMapas\Edit.cshtml" />
     <Content Include="Views\TipoPuntoMapas\Index.cshtml" />
+    <Content Include="Views\Alertas\Index.cshtml" />
+    <Content Include="Views\Alertas\CrearAlertaTrafico.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -509,6 +545,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811262130124_PuntosRutas3.resx">
       <DependentUpon>201811262130124_PuntosRutas3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811270330142_Alertas.resx">
+      <DependentUpon>201811270330142_Alertas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811272004184_TipoAlerta.resx">
+      <DependentUpon>201811272004184_TipoAlerta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811272006245_AlertaTransito.resx">
+      <DependentUpon>201811272006245_AlertaTransito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811272022411_AlertaTransitoLista.resx">
+      <DependentUpon>201811272022411_AlertaTransitoLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811272146026_AlertaTransitoL.resx">
+      <DependentUpon>201811272146026_AlertaTransitoL.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811280148381_Dropdown.resx">
+      <DependentUpon>201811280148381_Dropdown.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811280206568_DropdownList.resx">
+      <DependentUpon>201811280206568_DropdownList.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

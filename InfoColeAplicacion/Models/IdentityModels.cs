@@ -44,5 +44,10 @@ namespace InfoColeAplicacion.Models
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.PuntoMapa> Puntos { get; set; }
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Noticia> Noticias { get; set; }
         public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Ruta> Rutas { get; set; }
+
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Alerta> Alertas { get; set; }
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.Transito> Transitos { get; set; }
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.EstadoLinea> EstadoLineas { get; set; }
+        public System.Data.Entity.DbSet<InfoColeAplicacion.Models.TipoAlerta> TipoAlertas { get; set; }
     }
 }

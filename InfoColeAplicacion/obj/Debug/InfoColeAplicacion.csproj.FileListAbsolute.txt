@@ -765,3 +765,13 @@ D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicaci
 E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas.resources
 E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas2.resources
 E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas3.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas2.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.PuntosRutas3.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Alertas.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.TipoAlerta.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransito.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransitoLista.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransitoL.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Dropdown.resources
+D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.DropdownList.resources
