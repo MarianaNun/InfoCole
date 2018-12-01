@@ -1,0 +1,131 @@
+﻿<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="form-group col-md-4">
+        <label class="control-label col-md-2" for="ID">Linea</label>
+        <div class="col-md-10">
+            @Html.DropDownList("ID", null, htmlAttributes: new { @class = "form-control elements" })
+        </div>
+    </div>
+    <button id="filtrarPorLinea" class="btn btn-primary elements">Buscar</button>
+</div>
+
+<div class="row">
+    <div id="map"></div>
+</div>
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+
+    <script>
+        var map;
+        var markers = [];
+        var rutas = [];
+        var selectedRoute = {};
+        var startPosition = {};
+        var poly = {};
+        function initScript() {
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                this.startPosition.Lat = position.coords.latitude;
+                this.startPosition.Long = position.coords.longitude;
+
+                var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+                initMap(position);
+            }, () => {
+                this.startPosition.Lat = -27.451102018823633;
+                this.startPosition.Long = -58.98655582728293;
+                var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+                initMap(position);
+            });
+        }
+
+        function initMap(position) {
+            map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 16, center: position });
+            let url = "@Url.Action("Get")";
+            poly = new google.maps.Polyline({
+                strokeColor: '#000000',
+                strokeOpacity: 1.0,
+                strokeWeight: 3
+            });
+            poly.setMap(map);
+        }
+
+        $('#filtrarPorLinea').click(function (e) {
+            console.log(selectedRoute.Id);
+            var url = "@Url.Action("GetRutasByLinea", "Rutas")";
+            var id = {};
+            id.lineaId = $('#ID').val() * 1;
+            $.get(url, id).done(
+                function (data) {
+                    LimpiarMapa();
+                    if (data.length == 0) {
+                        alert("No se ha registrado una ruta para la linea seleccionada");
+                    }
+                    else {
+                        //Carga la ruta devuelta por el servidor
+                        for (let j = 0; j < data.length; j++) {
+                            
+                            var path = poly.getPath();
+                            for (var i = 0; i < data[j].Puntos.length; i++) {
+                                let latitud = parseFloat(data[j].Puntos[i].Lat);
+                                let longitud = parseFloat(data[j].Puntos[i].Long);
+
+                                //Si el indice es 0,significa que es el punto inicial,este se mostrar en el mapa
+                                if (i == 0) {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                        map: map,
+                                        title: 'Inicio del recorrido Linea: ' + data[j].Linea.Nombre,
+                                    });
+                                    markers.push(marker);
+                                    var rutaId = data[j].RutaId;
+                                    
+                                }
+                                else {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                    });
+                                }
+                                path.push(marker.position);
+                            }
+                            rutas.push(poly);//verificar si se utiliza este array
+                        }
+                    }                    
+                }
+            ).fail(() => alert("Ajax call failed"))
+        })
+
+
+        function LimpiarMapa() {
+            //Quita todos los puntos del mapa
+            for (let i = markers.length - 1; i >= 0; i--) {
+                markers[i].setMap(null);
+                markers[i] = null;
+            }
+            markers = [];
+            //Quita todas las lineas del mapa
+            for (let i = poly.getPath().length - 1; i >= 0; i--) {
+                poly.getPath()[i] = null;
+                poly.getPath().pop();
+            }
+        }
+
+
+    </script>
+
+
+
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4I8iAS4V_drotpXRjk1RjRZsAuKhxqU&callback=initScript">
+    </script>
+}

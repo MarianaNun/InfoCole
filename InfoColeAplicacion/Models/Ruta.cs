@@ -13,6 +13,7 @@ namespace InfoColeAplicacion.Models
 
         public virtual List<PuntoRuta> Puntos { get; set; }
 
+        
         public int ID { get; set; }
         public Linea Linea { get; set; }
     }

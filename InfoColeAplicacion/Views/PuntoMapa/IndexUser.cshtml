@@ -1,0 +1,106 @@
+﻿<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+
+<div>
+    <label>Tipo de punto</label>
+    @Html.DropDownList("TipoPuntoMapaId", (List<SelectListItem>)ViewBag.Tipos, new { htmlAttributes = new { @class = "form-control" } })
+
+    <button id="filtrarPorTipo" class="btn btn-primary elements">Buscar</button>
+    <div id="map"></div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+
+<script>
+    var startPosition = {};
+    var markers = [];
+    var infoWindows = [];
+    function initScript() {
+        navigator.geolocation.getCurrentPosition((position) => {
+
+            this.startPosition.Lat = position.coords.latitude;
+            this.startPosition.Long = position.coords.longitude;
+
+            var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+            initMap(position);
+        }, () => {
+            this.startPosition.Lat = -27.451102018823633;
+            this.startPosition.Long = -58.98655582728293;
+            var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+            initMap(position);
+        });
+    }
+
+    function initMap(position) {
+            map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 16, center: position });
+    }
+
+    $('#filtrarPorTipo').click(function (e) {           
+            var url = "@Url.Action("GetLocationsByType", "PuntoMapa")";
+            var tipo = {};
+            tipo.tipo = $('#TipoPuntoMapaId').val() * 1;
+            console.log(tipo.tipo);
+            $.get(url,tipo).done(
+                function (data) {
+                    LimpiarMapa();
+                    if (data.length == 0) {
+                        alert("No se han registrado puntos de : " + tipo.tipo);
+                    }
+                    else {                     
+                            for (let j = 0; j < data.length; j++) {
+                           
+                                let latitud = parseFloat(data[j].Lat);
+                                let longitud = parseFloat(data[j].Long);                             
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                        map: map,
+                                        title: 'Punto de: ' + data[j].Tipo.Nombre,
+                                });
+                                markers.push(marker);
+                                var contentString = '<div class="card" style="width: 18rem;">' +
+                                    '<div class="card-body">' +
+                                    '<h5 class="card-title">' + data[j].Tipo.Nombre + '</h5>' +
+                                    '<h6 class="card-subtitle mb-2 text-muted">' + data[j].Nombre + '</h6>' +
+                                    ' <p class="card-text">' + data[j].Descripcion + '</p >' +
+                                    '</div>' +
+                                    '</div>';
+                                var infoWindow = new google.maps.InfoWindow({
+                                    content: contentString
+                                });
+                                google.maps.event.addListener(marker, 'mouseover', (function (marker, infoWindow) {
+                                    return function () {
+                                        infoWindow.open(map, marker);
+                                    }
+                                })(marker, infoWindow));
+
+                                google.maps.event.addListener(marker, 'mouseout', (function (marker, infoWindow) {
+                                    return function () {
+                                        infoWindow.close();
+                                    }
+                                })(marker, infoWindow))
+                            }
+                        }
+                    }                                   
+            ).fail(() => alert("Ajax call failed"))
+    })
+
+    function LimpiarMapa(){
+        for (let i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+    }
+
+
+</script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4I8iAS4V_drotpXRjk1RjRZsAuKhxqU&callback=initScript">
+
+</script>

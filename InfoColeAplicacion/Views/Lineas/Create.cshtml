@@ -1,8 +1,5 @@
 ﻿@model InfoColeAplicacion.Models.Linea
 
-@{
-    ViewBag.Title = "Create";
-}
 
 <h2>Agregar nueva linea de colectivo</h2>
 
@@ -24,12 +21,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="GUARDAR" class="btn btn-default elements" />
+                <input type="submit" value="GUARDAR" class="btn btn-success elements" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("VOLVER", "Index")
+    @Html.ActionLink("Volver", "Index",null, htmlAttributes: new {@class = "btn btn-primary elements" })
 </div>

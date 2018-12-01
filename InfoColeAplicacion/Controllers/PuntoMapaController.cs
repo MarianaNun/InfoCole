@@ -20,6 +20,12 @@ namespace InfoColeAplicacion.Controllers
             return View();
         }
 
+        public ActionResult IndexUser()
+        {
+            ViewBag.Tipos = this.ObtenerTipos();
+            return View();
+        }
+
         public List<SelectListItem> ObtenerTipos()
         {
             List<SelectListItem> listado =  new List<SelectListItem>();

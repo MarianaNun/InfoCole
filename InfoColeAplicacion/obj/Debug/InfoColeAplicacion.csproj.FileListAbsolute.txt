@@ -775,3 +775,11 @@ D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicaci
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransitoL.resources
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Dropdown.resources
 D:\InfoCole-master\InfoCole-master\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.DropdownList.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Alertas.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.TipoAlerta.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransito.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransitoLista.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertaTransitoL.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Dropdown.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.DropdownList.resources
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.Rutas.resources

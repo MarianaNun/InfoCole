@@ -1,0 +1,351 @@
+﻿
+<h2>Rutas del transporte pulico</h2>
+
+<style>
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+</style>
+
+<div class="row">
+    <div class="form-group col-md-4">
+        <label class="control-label col-md-2" for="ID">Linea</label>
+        <div class="col-md-10">
+            @Html.DropDownList("ID", null, htmlAttributes: new { @class = "form-control elements" })
+        </div>
+    </div>
+    <button id="filtrarPorLinea" class="btn btn-primary elements col-md-4">Buscar</button>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-4">
+        @Html.ActionLink("Agregar ruta", "Create", null, new { @class = "btn btn-success btn-lg btn-block elements" })
+        @*<button id="editar" disabled class="btn btn-primary btn-lg btn-block elements">Editar ruta</button>*@
+        @*<button id="guardar" disabled class="btn btn-danger btn-lg btn-block elements">Guardar</button>*@
+        <button id="borrar" disabled class="btn btn-danger btn-lg btn-block elements">Borrar ruta</button>
+        @*<button id="remover" disabled class="btn btn-danger btn-lg btn-block elements">Remover ultimo punto</button>*@
+        <button id="cancelar" disabled class="btn btn-danger btn-lg btn-block elements">Cancelar</button>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jquery")
+    <script>
+
+        var map;
+        var markers = [];
+        var rutas = [];
+        var selectedRoute = {};
+        var startPosition = {};
+        //Solicita permiso para acceder a la posicion del dispositivo
+        //De ser denega la solicitud, el centro del mapa se situa en el centro de la plaza 25 de mayo
+        function initScript() {
+            navigator.geolocation.getCurrentPosition((position) => {
+
+                this.startPosition.Lat = position.coords.latitude;
+                this.startPosition.Long = position.coords.longitude;
+
+                var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+                initMap(position);
+            }, () => {
+                this.startPosition.Lat = -27.451102018823633;
+                this.startPosition.Long = -58.98655582728293;
+                var position = { lat: this.startPosition.Lat, lng: this.startPosition.Long };
+                initMap(position);
+            });
+        }
+
+        function initMap(position) {
+            map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 16, center: position });
+            let url = "@Url.Action("GetRutas", "Rutas")";
+            CargarRutasMapa(url);
+        }
+
+        function CargarRutasMapa(url) {
+            $.get(url).done(
+                (data) => {
+                    if (data.length > 0) {
+                        for (let j = 0; j < data.length; j++) {
+                            //EN EL OBJETO POLY SE LE COLOCA EL COLOR Y OPACIDAD DE LAS LINEAS
+                            poly = new google.maps.Polyline({
+                                strokeColor: '#000000',
+                                strokeOpacity: 1.0,
+                                strokeWeight: 3
+                            });
+                            poly.setMap(map);
+
+                            var path = poly.getPath();
+
+                            for (var i = 0; i < data[j].Puntos.length; i++) {
+                                let latitud = parseFloat(data[j].Puntos[i].Lat);
+                                let longitud = parseFloat(data[j].Puntos[i].Long);
+
+                                if (i == 0) {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                        map: map,
+                                        title: 'Inicio del recorrido Linea: ' + data[j].Linea.Nombre,
+                                    });
+                                    markers.push(marker);
+                                    var rutaId = data[j].RutaId;
+                                    google.maps.event.addListener(marker, 'click', (function (rutaId) {
+                                        return function () {
+                                            //punto.setDraggable(true);
+                                            console.log(rutaId);
+                                            selectedRoute.Id = rutaId * 1;
+                                            //$('#editar').removeAttr("disabled");
+                                            $('#borrar').removeAttr("disabled");
+                                            //$('#cancelar').removeAttr("disabled");
+                                        }
+                                    })(rutaId));
+                                }
+                                else {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+
+                                    });
+                                }
+                                path.push(marker.position);
+
+                            }
+                            //Agrega la ruta a una lista de rutas
+                            rutas.push(poly);
+                        }
+                    }
+                }
+            ).fail(() => { alert("Ajax call failed"); });
+        }
+
+
+        @*$('#editar').click(function (e) {
+            var url = "@Url.Action("Edit", "Rutas")";
+            var id = {};
+            id.id = selectedRoute.Id;
+            $.get(url, id).done(
+                function (data) {
+                    //Limpiar el mapa
+                    for (let i = markers.length - 1; i >= 0; i--) {
+                        markers[i].setMap(null);
+                        markers[i] = null;
+                    }
+                    selectedRoute.Id = data.RutaId * 1;
+                    markers = [];
+                    //Permite al usuario agregar puntos
+                    map.addListener('click', addLatLng);
+                    LimpiarMapa();
+                    //Cargar los puntos devueltos por el servidor
+                    poly = new google.maps.Polyline({
+                        strokeColor: '#000000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 3
+                    });
+                    poly.setMap(map);
+                    var path = poly.getPath();
+                    for (let i = 0; i < data.Puntos.length; i++) {
+                        let latitud = parseFloat(data.Puntos[i].Lat);
+                        let longitud = parseFloat(data.Puntos[i].Long);
+                        var marker = new google.maps.Marker({
+                            position: { lat: latitud, lng: longitud },
+                            map: map,
+                        });
+                        markers.push(marker);//Verificar si este array se utiliza
+                        //Carga la posicion del punto para generar las lineas
+                        path.push(marker.position);
+                    }
+
+                    //Carga el desplegable con el valor
+                    let linea = data.ID;
+
+                    $('#ID').val(linea);                    
+                    $('#editar').attr('disabled', 'disabled');
+                    $('#remover').removeAttr('disabled');
+                    $('#guardar').removeAttr('disabled');
+                    $('#cancelar').removeAttr('disabled');
+                }
+            ).fail(() => { alert("Ajax call failed"); });
+        })*@
+
+
+
+
+
+
+        $('#filtrarPorLinea').click(function (e) {
+            console.log(selectedRoute.Id);
+            var url = "@Url.Action("GetRutasByLinea", "Rutas")";
+            var id = {};
+            id.lineaId = $('#ID').val() * 1;
+            $.get(url, id).done(
+                function (data) {
+                    LimpiarMapa();
+                    if (data.length == 0) {
+                        alert("No se ha registrado una ruta para la linea seleccionada");
+                    }
+                    else {
+                        //Carga la ruta devuelta por el servidor
+                        for (let j = 0; j < data.length; j++) {
+                            poly = new google.maps.Polyline({
+                                strokeColor: '#000000',
+                                strokeOpacity: 1.0,
+                                strokeWeight: 3
+                            });
+                            poly.setMap(map);
+                            var path = poly.getPath();
+                            for (var i = 0; i < data[j].Puntos.length; i++) {
+                                let latitud = parseFloat(data[j].Puntos[i].Lat);
+                                let longitud = parseFloat(data[j].Puntos[i].Long);
+
+                                //Si el indice es 0,significa que es el punto inicial,este se mostrar en el mapa
+                                if (i == 0) {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                        map: map,
+                                        title: 'Inicio del recorrido Linea: ' + data[j].Linea.Nombre,
+                                    });
+                                    markers.push(marker);
+                                    var rutaId = data[j].RutaId;
+                                    //Evento que se produce al hacer click 
+                                    google.maps.event.addListener(marker, 'click', (function (rutaId) {
+                                        return function () {
+                                            selectedRoute.Id = rutaId * 1;
+                                            $('#editar').removeAttr("disabled");
+                                        }
+                                    })(rutaId));
+                                }
+                                else {
+                                    var marker = new google.maps.Marker({
+                                        position: { lat: latitud, lng: longitud },
+                                    });
+                                }
+                                path.push(marker.position);
+                            }
+                            rutas.push(poly);//verificar si se utiliza este array
+                        }
+                    }                    
+                }
+            ).fail(() => alert("Ajax call failed"))
+        })
+
+
+        function LimpiarMapa() {
+            //Quita todos los puntos del mapa
+            for (let i = markers.length - 1; i >= 0; i--) {
+                markers[i].setMap(null);
+                markers[i] = null;
+            }
+            markers = [];
+            //Quita todas las lineas del mapa
+            for (let i = poly.getPath().length - 1; i >= 0; i--) {
+                poly.getPath()[i] = null;
+                poly.getPath().pop();
+            }
+        }
+
+        //Remueve el ultimo punto agregado
+        //$('#remover').click(function() {
+
+        //    let path = poly.getPath();
+        //    if (path.length > 0) {
+        //        path.pop();
+        //        markers.pop().setMap(null);
+        //        if (path.length == 0) {
+        //            $('#remover').attr('disabled', 'disabled');
+        //        }
+        //        console.log(path.length);
+        //    }
+        //})
+
+        //Agrega un punto a la ruta
+        function addLatLng(event) {
+                let path = poly.getPath();
+
+                path.push(event.latLng);
+
+                var marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map
+                });
+                markers.push(marker);
+            }
+
+        //Llamada ajax al metodo de crear
+        $("#guardar").click(function (e){
+            e.preventDefault();
+            let puntos = [];
+            for (let i = 0; i < markers.length; i++) {
+                var punto = {
+                    Lat : "",
+                    Long : ""
+                };
+                punto.Lat = markers[i].position.lat();
+                punto.Long = markers[i].position.lng();
+                puntos.push(punto);
+            }
+            let data = {};
+            console.log(selectedRoute.Id);
+            data.RutaId = selectedRoute.Id;
+            data.ID = $('#ID').val() * 1;
+            data.Puntos = puntos;
+            let url = "@Url.Action("Edit", "Rutas")";
+            $.post(url, data).done(
+                (mensaje) => {
+
+                    //Quita todos los puntos del mapa
+                    for (let i = markers.length - 1; i >= 0; i--) {
+                        markers[i].setMap(null);
+                        markers[i] = null;        
+                    }
+                    markers = [];
+
+                    //Quita todas las lineas del mapa
+                    for (let i = poly.getPath().length - 1; i >= 0; i--) {
+                        poly.getPath()[i] = null;
+                        poly.getPath().pop();
+                    }
+                    alert(mensaje);
+                    $('#remover').attr('disabled','disabled');
+                }
+            ).fail(() => { alert("Se ha producido un error,intente nuevamente"); });
+        })
+
+        $("#borrar").click(function (e){
+            e.preventDefault();
+            let id = {};
+            id.id = selectedRoute.Id;
+            let url = "@Url.Action("Delete", "Rutas")";
+            $.post(url, id).done(
+                (mensaje) => {
+                    alert(mensaje);
+                    $('#remover').attr('disabled', 'disabled');
+                    $('#borrar').attr('disabled', 'disabled');
+                    selectedRoute.Id = 0;
+                    LimpiarMapa();
+                    let url = "@Url.Action("GetLocations","Rutas")";
+                    CargarRutasMapa(url);
+                }
+            ).fail(() => { alert("Se ha producido un error,intente nuevamente"); });
+        })
+
+    </script>
+
+
+
+
+
+
+
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDT4I8iAS4V_drotpXRjk1RjRZsAuKhxqU&callback=initScript">
+    </script>
+}

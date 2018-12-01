@@ -221,6 +221,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NoticiasController.cs" />
     <Compile Include="Controllers\PuntoMapaController.cs" />
+    <Compile Include="Controllers\RutasController.cs" />
     <Compile Include="Controllers\TipoPuntoMapasController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -317,6 +318,10 @@
     <Compile Include="Migrations\201811280206568_DropdownList.cs" />
     <Compile Include="Migrations\201811280206568_DropdownList.Designer.cs">
       <DependentUpon>201811280206568_DropdownList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811290306349_Rutas.cs" />
+    <Compile Include="Migrations\201811290306349_Rutas.Designer.cs">
+      <DependentUpon>201811290306349_Rutas.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -486,6 +491,13 @@
     <Content Include="Views\TipoPuntoMapas\Index.cshtml" />
     <Content Include="Views\Alertas\Index.cshtml" />
     <Content Include="Views\Alertas\CrearAlertaTrafico.cshtml" />
+    <Content Include="Views\Rutas\Create.cshtml" />
+    <Content Include="Views\Rutas\Delete.cshtml" />
+    <Content Include="Views\Rutas\Details.cshtml" />
+    <Content Include="Views\Rutas\Edit.cshtml" />
+    <Content Include="Views\Rutas\Index.cshtml" />
+    <Content Include="Views\Rutas\IndexUser.cshtml" />
+    <Content Include="Views\PuntoMapa\IndexUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -566,6 +578,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811280206568_DropdownList.resx">
       <DependentUpon>201811280206568_DropdownList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811290306349_Rutas.resx">
+      <DependentUpon>201811290306349_Rutas.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

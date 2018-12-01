@@ -43,10 +43,8 @@
 
         var geoSuccess  = function (position) {
             startPos = position;
-            console.log(startPos);
             map = new google.maps.Map(
                 document.getElementById('map'), { zoom: 16, center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude } });
-
 
             var url = "@Url.Action("GetLocations", "PuntoMapa")";
             $.get(url).done(
@@ -125,14 +123,11 @@
         })
 
         $('#borrar').click(function (e) {
-            console.log(selectedMarker.Nombre);
-            var url = "@Url.Action("Delete", "PuntoMapa")";
+            let url = "@Url.Action("Delete", "PuntoMapa")";
 
-            var id = {};
+            let id = {};
             id.id = 0;
             id.id = selectedMarker.PuntoMapaId;
-
-            console.log(id.id);
             $.post(url, id).done(
                 function (mensaje) {
                     selectedMarker.Marker.setMap(null);
