@@ -323,6 +323,10 @@
     <Compile Include="Migrations\201811290306349_Rutas.Designer.cs">
       <DependentUpon>201811290306349_Rutas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812010416377_AlertasUpdate.cs" />
+    <Compile Include="Migrations\201812010416377_AlertasUpdate.Designer.cs">
+      <DependentUpon>201812010416377_AlertasUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Alerta.cs" />
@@ -498,6 +502,8 @@
     <Content Include="Views\Rutas\Index.cshtml" />
     <Content Include="Views\Rutas\IndexUser.cshtml" />
     <Content Include="Views\PuntoMapa\IndexUser.cshtml" />
+    <Content Include="Views\Alertas\EstadoLineas.cshtml" />
+    <Content Include="Views\Alertas\AlertaLineas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -581,6 +587,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811290306349_Rutas.resx">
       <DependentUpon>201811290306349_Rutas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812010416377_AlertasUpdate.resx">
+      <DependentUpon>201812010416377_AlertasUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

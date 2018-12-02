@@ -1,0 +1,33 @@
+﻿@model InfoColeAplicacion.Models.EstadoLinea
+
+@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("EstadoLineas", "Alertas", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div id="EstadoLineas">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            Tipo:
+            @Html.DropDownList("TipoID", (SelectList)ViewBag.TipoID, "Seleccione el tipo", new { @class = "form-control", @style = "width: 200px" })
+            @Html.ValidationMessageFor(model => model.TipoID)
+        </div>
+        <br />
+        <div>
+            Lineas:
+            @Html.DropDownList("LineaID", (SelectList)ViewBag.LineaID, "Seleccione la linea", new { @class = "form-control", @style = "width : 200px" })
+            @Html.ValidationMessageFor(model => model.LineaID)
+        </div>
+        <br />
+        <div>
+            @Html.TextAreaFor(model => model.Contenido, 2, 50, new { htmlAttributes = new { @class = "form-control textarea1" } })
+            @Html.ValidationMessageFor(model => model.Contenido)
+        </div>
+        <input type="submit" name="submitAlerta" value="Publicar estado de Linea" />
+        <input type="reset" value="Cancelar">
+    </div>
+
+}

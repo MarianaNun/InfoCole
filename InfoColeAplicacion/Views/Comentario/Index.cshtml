@@ -3,7 +3,7 @@
     ViewBag.Title = "Comentarios";
 }
 <link href="~/Content/StyleComentarios.css" rel="stylesheet" />
-<body style="padding-top:140px" class="position-sticky">
+<body style="padding-top:70px" class="position-sticky">
     <div class="form-group">
         <h2>De lo que se está hablando</h2>
     </div>
@@ -24,7 +24,7 @@
                         }
                         else
                         {
-                            <h5 class="comment-name by-author" style="color: #dee1e3">@Html.DisplayFor(modelItem => item.User.UserName)</h5>
+                            <h5 class="comment-name by-author" style="color:antiquewhite">@Html.DisplayFor(modelItem => item.User.UserName)</h5>
                         }
                         @{
                             int days = DateTime.Now.Subtract(item.Fecha).Days;
@@ -45,7 +45,7 @@
                                 }
                                 else
                                 {
-                                    ViewBag.Dias = "Hace " + hours + "horas";
+                                    ViewBag.Dias = "Hace " + hours + " horas";
                                 }
                             }
                             else if ((days >= 1) && (DateTime.Now.Month == item.Fecha.Month))
@@ -67,19 +67,23 @@
                             }
 
                         }
-                        <span>
-                            @ViewBag.Dias
+                        <span style="color:lightgray">
+                            <b>
+                                @ViewBag.Dias
+                            </b>
                         </span>
                         @if (item.ApplicationUserId == ViewBag.ID)
                         {
                             <div class="float-right row mr-1">
-                                <span class="badge badge-warning mr-1">
+                                <span class="badge badge-success mr-1">
+                                    <img src="~/Images/Comentario/ChatEdit.png" height="20" />
                                     @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
-                                    <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:black"></i>
+                                    @*<i class="fa fa-pencil-square-o" aria-hidden="true" style="color:black"></i>*@
                                 </span>
                                 <span class="badge badge-danger">
+                                    <img src="~/Images/Comentario/ChatDelete.png" height="20" />
                                     @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
-                                    <i class="fa fa-trash-o" aria-hidden="true" style="color:black"></i>
+                                    @*<i class="fa fa-trash-o" aria-hidden="true" style="color:black"></i>*@
                                 </span>
                             </div>
                         }

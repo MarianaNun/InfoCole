@@ -7,6 +7,7 @@
     ViewBag.Title = "Historial";
 }
 <h2>Historial</h2>
+<hr />
 <div class="container" style="width:90%">
     @foreach (var item in Model)
     {
@@ -31,14 +32,14 @@
             </div>
             <div class="card-footer">
                 <div class="row" style="text-align:center; justify-content:center">
-                    <button class="m-1">
-                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="color:darkgreen"></i>
-                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: black;" })
-                    </button>
-                    <button class="m-1">
-                        <i class="fa fa-trash-o" aria-hidden="true" style="color:red"></i>
-                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: black;" })
-                    </button>
+                    <span class="badge badge-success mr-1">
+                                    <img src="~/Images/Comentario/ChatEdit.png" height="20" />
+                        @Html.ActionLink("Editar", "Edit", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
+                    </span>
+                    <span class="badge badge-danger mr-1">
+                        <img src="~/Images/Comentario/ChatDelete.png" height="20" />
+                        @Html.ActionLink("Eliminar", "Delete", new { id = item.ID }, new { data_modal = "", @style = "color: white" })
+                    </span>
                 </div>
             </div>
         </div>

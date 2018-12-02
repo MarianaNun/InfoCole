@@ -9,10 +9,15 @@ namespace InfoColeAplicacion.Models
     public class EstadoLinea
     {
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "El campo Contenido es requerido")]
         public string Contenido { get; set; }
         public DateTime Fecha { get; set; }
-        public string Tipo { get; set; }
+
+        [Required(ErrorMessage = "El campo Tipo es requerido")]
+        public int TipoID { get; set; }
+        public TipoAlerta Tipo { get; set; }
+
+        public int LineaID { get; set; }
         public virtual Linea Linea { get; set; }
     }
 }

@@ -12,24 +12,25 @@
     @Styles.Render("~/Content/css")
 
 </head>
-<body class="mt-0 pt-0" style="background-color: #dee1e3">
-    <div class="sticky-top row w-100 m-0" style="background-color: #03658c">
-        <div class="d-flex flex-row col-md-6">
-            <nav class="navbar" style="color:white">
-                <a class="navbar-brand">
-                    <img src="~/Images/logoBlanco.png" width="38" height="38" class="d-inline-block align-content-center align-items-center" style="text-align:center">
-                    <b>INFOCOLE</b>
+<body class="mt-0 pt-0" style="background-color: #dee1e3; width:100%">
+    <div class="row w-100 m-0" style="background-color: #03658c; height:120px; width:100%">
+        <div class="col-5 flex-column my-auto">
+            <nav class="navbar m-auto text-center" style="color:white">
+                <a class="my-auto flex-column" style="height:120px">
+                    <img src="~/Images/logoBlanco.png" style="height: 70%">
+                   <br />
+                    <b style="font-size: 140%">INFOCOLE</b>
                 </a>
             </nav>
         </div>
-        <div class="d-flex flex-row-reverse col-md-6 ">
+        <div class="d-flex flex-row-reverse col-7">
             @Html.Partial("_LoginPartial")
         </div>
     </div>
 
     @if (User.IsInRole("Admin"))
     {
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed" style="z-index:100; position: fixed; width:100%">
+        <nav id="menuPrincipal" class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index:100; width:100%">
             <a class="navbar-brand" href="/Home/Index">InfoCole </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,6 +57,10 @@
                     <li class="nav-item">
                         <a class="nav-link fontColor-white" href="@Url.Action("Index", "TipoPuntoMapas")">Tipos de punto</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link fontColor-white" href="@Url.Action("Index", "Alertas")">Alertas</a>
+                    </li>
                 </ul>
 
             </div>
@@ -63,50 +68,81 @@
     }
     else
     {
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed" style="z-index:100; position: fixed; width:100%">
-            <a class="navbar-brand" href="@Url.Action("Index", "Home")">Inicio</a>
+        <nav id="menuPrincipal" class="navbar navbar-expand-lg navbar-dark bg-dark" style="z-index:100; width:100%">
+            <a class="navbar-brand mr-3" href="@Url.Action("Index", "Home")">
+                <img src="~/Images/Home/Home.png" height="35" style="margin-right:0" />
+                Inicio
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "Comentario")">Comentarios</a>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1 p-0">
+                        <a class="nav-link" href="@Url.Action("Index", "Comentario")">
+                            <img src="~/Images/Home/chat.png" height="35" style="margin-right:0" />
+                            Comentarios
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Contact", "Home")">Noticia</a>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                        <a class="nav-link" href="@Url.Action("IndexUser","PuntoMapa")">
+                            <img src="~/Images/Home/LocationPoint.png" height="35" />
+                            Puntos
+                        </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("About", "Home")">Acerca de Nosotros</a>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                        <a class="nav-link" href="@Url.Action("IndexUser","Rutas")">
+                            <img src="~/Images/Home/Way.png" height="35" />
+                            Rutas
+                        </a>
+                    </li>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                        <a class="nav-link" href="@Url.Action("About", "Home")">
+                            <img src="~/Images/Home/AlertaIcon.png" height="35" />
+                            Alertas
+                        </a>
+                    </li>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                        <a class="nav-link" href="@Url.Action("Contact", "Home")">
+                            <img src="~/Images/Home/News.png" height="35" />
+                            Noticia
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-right">
                     @if (ViewBag.ID != null)
                     {
-                        <li class="nav-item">
-                            @Html.ActionLink("Crear comentario", "Create", null, new { data_modal = "", @class = "nav-link" })
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Details", "Comentario")">Historial</a>
+                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                        <img src="~/Images/Comentario/ChatAdd.png" height="35" />
+                        @Html.ActionLink("Crear comentario", "Create", null, new { data_modal = "", @class = "nav-link", @style = "display:inline-block" })
+                    </li>
+                        <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                            <a class="nav-link" href="@Url.Action("Details", "Comentario")">
+                                <img src="~/Images/Comentario/HistorialComent.png" height="35" />
+                                Historial
+                            </a>
                         </li>
                     }
                     else
                     {
                         if (ViewBag.Title == "Comentarios")
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" href="@Url.Action("Login", "Account")">Crear comentario</a>
+                            <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                                <a class="nav-link" href="@Url.Action("Login", "Account")">
+                                    <img src="~/Images/Comentario/ChatAdd.png" height="35" />
+                                    Crear comentario
+                                </a>
                             </li>
                         }
                     }
                 </ul>
-</div>
+            </div>
         </nav>
     }
 
 
-    <div style="height: 70px"></div>
+    <div style="height: 40px"></div>
 
     <div class="container body-content">
         @RenderBody()
@@ -120,6 +156,15 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/modalform")
     @RenderSection("scripts", required: false)
+    <script>
+        $(window).scroll(function () {
+            if ($("#menuPrincipal").offset().top > 110) {
+                $("#menuPrincipal").addClass("sticky-top");
+            } else {
+                $("#menuPrincipal").removeClass("sticky-top");
+            }
+        })
+    </script>
 </body>
 </html>
 

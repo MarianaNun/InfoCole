@@ -1,10 +1,10 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "" }))
     {
         @Html.AntiForgeryToken()
-        <div class="float-right" >
+        <div class="float-right mt-5 mr-md-4">
             <ul >
                 <li style="list-style:none; color: white" class="text-right">
                     @Html.ActionLink("Hola " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { @style = "color:white;" })
@@ -19,12 +19,12 @@
 }
 else
 {
-    <div class="navbar row float-right ">
-        <ul class="nav">
-            <li class="nav-item">
+    <div class="float-right" style="margin-top: auto">
+        <ul >
+            <li style="list-style:none; color: white" class="text-right">
                 <a class="nav-link" name="Registrarse" href="@Url.Action("Register", "Account")" style="color: aliceblue">Registrarse </a>
             </li>
-            <li class="nav-item">
+            <li style="list-style:none; color: white" class="text-right">
                 <a class="nav-link" name="IniciarSesion" href="@Url.Action("Login", "Account")" style="color: aliceblue">Iniciar sesión </a>
             </li>
         </ul>

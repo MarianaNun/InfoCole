@@ -1,48 +1,7 @@
 ﻿@model IList<InfoColeAplicacion.Models.Noticia>
 
 
-<div class="row mb-5 mt-5">
-   
-    <div class="card border-0 col-md-3 bg-transparent">
-        <a href="@Url.Action("IndexUser","PuntoMapa")" style="text-decoration:none">
-            <img class="card-img-top" src="~/Images/Home/Location Pin2.png" alt="Card image cap">
-            <div class="card-body">
-                <b><p class="card-text text-center" style="font-size:35px; font-family: Arial, Helvetica, sans-serif; color: black">Puntos</p></b>
-            </div>
-        </a>
-    </div>
-    
-    
-    <div class="card  border-0 col-md-3 bg-transparent">
-        <a href="@Url.Action("IndexUser","Rutas")" style="text-decoration:none">
-            <img class="card-img-top" src="~/Images/Home/Destination3.png" alt="Card image cap">
-            <div class="card-body text-center">
-                <b><p class="card-text text-center" style="font-size:35px; font-family: Arial, Helvetica, sans-serif; color: black">Rutas</p></b>
-            </div>
-        </a>
-    </div>
-   
-    <div class="card border-0  col-md-3 bg-transparent">
-        <a href="@Url.Action("Index", "Comentario")" style="text-decoration:none">
-            <img class="card-img-top" src="~/Images/Home/communication1.png" alt="Card image cap">
-            <div class="card-body text-center">
-                <b><p class="card-text text-center" style="font-size:35px; font-family: Arial, Helvetica, sans-serif; color: black">Comentarios</p></b>
-            </div>
-        </a>
-    </div>
-    
-    <div class="card border-0  col-md-3 bg-transparent">
-        <a href="@Url.Action("About", "Home")" style="text-decoration:none;">
-            <img class="card-img-top" src="~/Images/Home/Ring.png" alt="Card image cap">
-            <div class="card-body text-center">
-                <b><p class="card-text text-center" style="font-size:35px; font-family: Arial, Helvetica, sans-serif; color: black">Alertas</p></b>
-            </div>
-        </a>
-    </div>
-</div>
-<br />
-
-<div class="container">
+@*<div class="container">
     <div class="row">
         <div class="col-lg-12">
             <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -50,7 +9,6 @@
                 <div class="carousel-inner">
                     <div class="item active carousel-item">
                         <div class="card-deck">
-                            @*@for (var i = 0; i < 3; i++)*@
                             <div class="card" style="border:none">
                                 <img class="card-img-top" src=@Html.DisplayFor(model => model[0].LinkImagen) width="400" height="300">
                                 <div class="card-body">
@@ -162,6 +120,6 @@
             <!--.Carousel-->
         </div>
     </div>
-</div>
+</div>*@
 
 

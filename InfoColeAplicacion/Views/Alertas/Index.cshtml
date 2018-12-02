@@ -19,14 +19,7 @@
                 <h3>Alertas</h3>
                 <br />
                 <div>
-                    <div class="media mb-2">
-                        <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="50">
-                        <div class="media-body">
-                            <span style="color:dimgray">-Fecha-</span>
-                            <p>Piquites en el microcentro. Las lineas del transporte público circulan por rutas alternas y con el servicio con pequeños retrasos.</p>
-                        </div>
-                    </div>
-
+                    @{Html.RenderPartial("AlertaLineas");}
                 </div>
             </div>
 
@@ -35,39 +28,15 @@
                     <h3>Estado de las lineas</h3>
                 </div>
                 <br />
-                <ul style="list-style: none">
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 2 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Rojo.png" height="40" />Linea 12 - Ramal B con servicio suspendido
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 101 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 103 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 104 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 105 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 106 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 110 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Amarillo.png" height="40" />Linea 111 - Recorridos Alterados
-
-                    </li>
-                </ul>
+                <div>
+                    @{Html.RenderPartial("EstadoLineas");}
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-@Scripts.Render("~/bundles/jqueryval")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

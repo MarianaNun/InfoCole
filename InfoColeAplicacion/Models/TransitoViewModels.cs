@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
+using InfoColeAplicacion.Models;
 
 namespace InfoColeAplicacion.Models
 {
     public class TransitoViewModels
     {
-        [Required]
-        [Display(Name = "Descrpcion")]
-        public string Descripcion { get; set; }
+        public string contenido{ get; set; }
+        public int tipo{ get; set; }
+        public string linea { get; set; }
 
-        [Required]
-        [Display(Name = "Tipo")]
-        public string SelectedTipo{ get; set; }
-        public IEnumerable<SelectListItem> Tipo { get; set; }
     }
 }

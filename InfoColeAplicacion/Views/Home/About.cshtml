@@ -14,8 +14,16 @@
     <div>
         <h3>Estado del transito</h3>
         <div class="alert alert-dark text-center justify-content-center" role="alert">
-            <img src="~/Images/Alertas/NotificationAlert.png" height="50" />
-            <b><p>Transito normal, no se registran demoras o cambios de recorrido.</p></b>
+            @if (@ViewBag.EstadoTransito.TipoID == 1)
+            {
+                <img src="~/Images/Alertas/NotificationWarning.png" height="50" />}
+            else if (@ViewBag.EstadoTransito.TipoID == 2)
+            {
+                <img src="~/Images/Alertas/NotificationAlert.png" height="50" />}
+            else
+            {
+                <img src="~/Images/Alertas/NotificationOK.png" height="50" />}
+            <b><p>@ViewBag.EstadoTransito.Contenido</p></b>
         </div>
     </div>
     <div>
@@ -24,27 +32,29 @@
                 <h3>Alertas</h3>
                 <br />
                 <div>
-                    <div class="media mb-2">
-                        <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="50">
-                        <div class="media-body">
-                            <span style="color:dimgray">-Fecha-</span>
-                            <p>Piquites en el microcentro. Las lineas del transporte público circulan por rutas alternas y con el servicio con pequeños retrasos.</p>
+                    @foreach (var item in ViewBag.AlertaTransito)
+                    {
+                        <div class="media mb-2">
+
+                            @if (item.TipoID == 1)
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Rojo.png" height="50" />
+                            }
+                            else if (item.TipoID == 2)
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="50" />
+                            }
+                            else
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Verde.png" height="50" />
+                            }
+
+                            <div class="media-body">
+                                <span style="color:dimgray"> @item.Fecha</span>
+                                <p>@item.Contenido</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="media mb-2">
-                        <img class="align-self-center mr-3" src="~/Images/Alertas/Verde.png" height="50">
-                        <div class="media-body">
-                            <span style="color:dimgray">-Fecha-</span>
-                            <p> Se levantó el paro de colectivos y la situación se normalizará en las proximas horas.</p>
-                        </div>
-                    </div>
-                    <div class="media mb-2">
-                        <img class="align-self-center mr-3" src="~/Images/Alertas/Rojo.png" height="50">
-                        <div class="media-body">
-                            <span style="color:dimgray">-Fecha-</span>
-                            <p>Paro total de colectivos. Actualmente las todas las lineas de la ciudad de Resistencia y ciudades aledañas no estan prestando el servicio de trasporte.</p>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
 
@@ -53,36 +63,25 @@
                     <h3>Estado de las lineas</h3>
                 </div>
                 <br />
-                <ul style="list-style: none">
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 2 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Rojo.png" height="40" />Linea 12 - Ramal B con servicio suspendido
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 101 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 103 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 104 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 105 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 106 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Verde.png" height="40" />Linea 110 - Con normalidad
-                    </li>
-                    <li>
-                        <img src="~/Images/Alertas/Amarillo.png" height="40" />Linea 111 - Recorridos Alterados
-
-                    </li>
-                </ul>
+                @foreach (var item in ViewBag.EstadoLineas)
+                {
+                    <ul style="list-style: none">
+                        <li class="row">
+                            @if (item.tipo == 1)
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Rojo.png" height="40" /> <p>@item.linea - @item.contenido</p>
+                            }
+                            else if (item.tipo == 2)
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="40" /><p>@item.linea  - @item.contenido</p>
+                            }
+                            else
+                            {
+                                <img class="align-self-center mr-3" src="~/Images/Alertas/Verde.png" height="40" /><p>@item.linea  - @item.contenido</p>
+                            }
+                        </li>
+                    </ul>
+                }
             </div>
         </div>
     </div>
