@@ -12,7 +12,7 @@
     @Styles.Render("~/Content/css")
 
 </head>
-<body class="mt-0 pt-0" style="background-color: #dee1e3; width:100%">
+<body class="mt-0 pt-0" style="background-color: #ececec; width:100%">
     <div class="row w-100 m-0" style="background-color: #03658c; height:120px; width:100%">
         <div class="col-5 flex-column my-auto">
             <nav class="navbar m-auto text-center" style="color:white">
@@ -111,19 +111,22 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav float-right">
-                    @if (ViewBag.ID != null)
+                    @if (User.Identity.IsAuthenticated )
                     {
-                    <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
-                        <img src="~/Images/Comentario/ChatAdd.png" height="35" />
-                        @Html.ActionLink("Crear comentario", "Create", null, new { data_modal = "", @class = "nav-link", @style = "display:inline-block" })
-                    </li>
-                        <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
-                            <a class="nav-link" href="@Url.Action("Details", "Comentario")">
-                                <img src="~/Images/Comentario/HistorialComent.png" height="35" />
-                                Historial
-                            </a>
-                        </li>
-                    }
+                            if (ViewBag.Title == "Comentarios")
+                            {
+                            <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                                <img src="~/Images/Comentario/ChatAdd.png" height="35" />
+                                @Html.ActionLink("Crear comentario", "Create", null, new { data_modal = "", @class = "nav-link mt-1", @style = "display:inline-block" })
+                            </li>
+                            }
+                            <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
+                                <a class="nav-link" href="@Url.Action("Details", "Comentario")">
+                                    <img src="~/Images/Comentario/HistorialComent.png" height="35" />
+                                    Historial
+                                </a>
+                            </li>
+                        }
                     else
                     {
                         if (ViewBag.Title == "Comentarios")

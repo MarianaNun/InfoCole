@@ -17,7 +17,7 @@
         <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
     </address>*@
 @model IEnumerable<InfoColeAplicacion.Models.Noticia>
-<h3>Lo que necesitas saber antes de salir de casa</h3>
+<h4 style="font-family: Verdana">Lo que necesitas saber antes de salir de casa</h4>
 <hr />
 <div class="card-columns">
     @foreach (var item in Model)
@@ -42,9 +42,9 @@
         <div class="card">
             <img class="card-img-top" src=@Html.DisplayFor(model => item.LinkImagen) alt="Card image cap">
             <div class="card-body">
-                <a href=@Html.DisplayFor(model => item.LinkNoticia) style="font-size: 25px" target="_blank">@Html.DisplayFor(model => item.Titulo)</a><br />
+                <a href=@Html.DisplayFor(model => item.LinkNoticia) style="font-size: 23px; font-family: Arial, Helvetica, sans-serif" target="_blank">@Html.DisplayFor(model => item.Titulo)</a><br />
                 <span style="color: gray">@String.Format("{0:d}", item.FechaPublicacion)</span> |
-                @Html.DisplayFor(model => item.Descripcion)
+                <p style="font-family: Arial, Helvetica, sans-serif">@Html.DisplayFor(model => item.Descripcion)</p>
             </div>
         </div>
 

@@ -5,12 +5,15 @@
     }
 </style>
 
-
+<h4 style="font-family: Verdana">Ubicación de puntos importantes</h4>
+<br />
 <div>
-    <label>Tipo de punto</label>
+    <label style="font-family: Verdana">Tipo de punto: </label>
     @Html.DropDownList("TipoPuntoMapaId", (List<SelectListItem>)ViewBag.Tipos, new { htmlAttributes = new { @class = "form-control" } })
 
     <button id="filtrarPorTipo" class="btn btn-primary elements">Buscar</button>
+    <br />
+    <br />
     <div id="map"></div>
 </div>
 
@@ -41,7 +44,7 @@
                 document.getElementById('map'), { zoom: 16, center: position });
     }
 
-    $('#filtrarPorTipo').click(function (e) {           
+    $('#filtrarPorTipo').click(function (e) {
             var url = "@Url.Action("GetLocationsByType", "PuntoMapa")";
             var tipo = {};
             tipo.tipo = $('#TipoPuntoMapaId').val() * 1;
@@ -52,24 +55,37 @@
                     if (data.length == 0) {
                         alert("No se han registrado puntos de : " + tipo.tipo);
                     }
-                    else {                     
+                    else {
                             for (let j = 0; j < data.length; j++) {
-                           
+
                                 let latitud = parseFloat(data[j].Lat);
-                                let longitud = parseFloat(data[j].Long);                             
+                                let longitud = parseFloat(data[j].Long);
                                     var marker = new google.maps.Marker({
                                         position: { lat: latitud, lng: longitud },
                                         map: map,
+                                        icon: "/Images/Mapas/LocationPoint.png",
                                         title: 'Punto de: ' + data[j].Tipo.Nombre,
                                 });
                                 markers.push(marker);
-                                var contentString = '<div class="card" style="width: 18rem;">' +
-                                    '<div class="card-body">' +
-                                    '<h5 class="card-title">' + data[j].Tipo.Nombre + '</h5>' +
-                                    '<h6 class="card-subtitle mb-2 text-muted">' + data[j].Nombre + '</h6>' +
-                                    ' <p class="card-text">' + data[j].Descripcion + '</p >' +
-                                    '</div>' +
-                                    '</div>';
+                                if (data[j].Tipo.Nombre == "Parada de Taxi") {
+                                    var contentString = '<div class="card" style="width: 18rem; background-color: #FF8000">' +
+                                        '<div class="card-body">' +
+                                        '<img src = "/Images/Mapas/Car.png" height = "70" class="float-md-right" />' +
+                                        '<h5 class="card-title" style="color:white">' + data[j].Tipo.Nombre + '</h5>' +
+                                        '<h6 class="card-subtitle mb-2" style="color: lightgrey">' + data[j].Nombre + '</h6>' +
+                                        ' <p class="card-text" style="color: white">' + data[j].Descripcion + '</p >' +
+                                        '</div>' +
+                                        '</div>';
+                                } else {
+                                    var contentString = '<div class="card" style="width: 18rem; background-color: dodgerblue">' +
+                                        '<div class="card-body">' +
+                                        '<img src = "/Images/Mapas/SUBE.png" height = "70" class="float-md-right" />' +
+                                        '<h5 class="card-title" style="color:white">' + data[j].Tipo.Nombre + '</h5>' +
+                                        '<h6 class="card-subtitle mb-2" style="color: lightgrey">' + data[j].Nombre + '</h6>' +
+                                        ' <p class="card-text" style="color: white">' + data[j].Descripcion + '</p >' +
+                                        '</div>' +
+                                        '</div>';
+                                    }
                                 var infoWindow = new google.maps.InfoWindow({
                                     content: contentString
                                 });
@@ -86,7 +102,7 @@
                                 })(marker, infoWindow))
                             }
                         }
-                    }                                   
+                    }
             ).fail(() => alert("Ajax call failed"))
     })
 

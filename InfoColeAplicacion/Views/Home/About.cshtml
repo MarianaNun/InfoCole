@@ -12,7 +12,7 @@
     </div>*@
 <div class=" container-fluid">
     <div>
-        <h3>Estado del transito</h3>
+        <h4 style="font-family: Verdana">Estado del transito</h4>
         <div class="alert alert-dark text-center justify-content-center" role="alert">
             @if (@ViewBag.EstadoTransito.TipoID == 1)
             {
@@ -26,12 +26,12 @@
             <b><p>@ViewBag.EstadoTransito.Contenido</p></b>
         </div>
     </div>
+    <br />
     <div>
         <div class="row" style="height:100%">
-            <div class="col-md-8 float-left">
-                <h3>Alertas</h3>
-                <br />
-                <div>
+            <div class="col-md-6 mr-auto float-left">
+                <h4 style="font-family: Verdana">Alertas</h4>
+                <div class="alert alert-dark ">
                     @foreach (var item in ViewBag.AlertaTransito)
                     {
                         <div class="media mb-2">
@@ -58,30 +58,30 @@
                 </div>
             </div>
 
-            <div class="col-md-4 float-right">
-                <div class="text-center">
-                    <h3>Estado de las lineas</h3>
+            <div class="col-md-5 float-right">
+                <h4 style="font-family: Verdana">Estado de las lineas</h4>
+                <div class="alert alert-dark text-center">
+                    @foreach (var item in ViewBag.EstadoLineas)
+                    {
+                        <ul style="list-style: none">
+                            <li class="row">
+                                @if (item.tipo == 1)
+                                {
+                                    <img class="align-self-center mr-3" src="~/Images/Alertas/Rojo.png" height="40" /> <p><b>@item.linea</b> - @item.contenido</p>
+                                }
+                                else if (item.tipo == 2)
+                                {
+                                    <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="40" /><p><b>@item.linea</b>  - @item.contenido</p>
+                                }
+                                else
+                                {
+                                    <img class="align-self-center mr-3" src="~/Images/Alertas/Verde.png" height="40" /><p><b>@item.linea</b>  - @item.contenido</p>
+                                }
+                            </li>
+                        </ul>
+                    }
+
                 </div>
-                <br />
-                @foreach (var item in ViewBag.EstadoLineas)
-                {
-                    <ul style="list-style: none">
-                        <li class="row">
-                            @if (item.tipo == 1)
-                            {
-                                <img class="align-self-center mr-3" src="~/Images/Alertas/Rojo.png" height="40" /> <p>@item.linea - @item.contenido</p>
-                            }
-                            else if (item.tipo == 2)
-                            {
-                                <img class="align-self-center mr-3" src="~/Images/Alertas/Amarillo.png" height="40" /><p>@item.linea  - @item.contenido</p>
-                            }
-                            else
-                            {
-                                <img class="align-self-center mr-3" src="~/Images/Alertas/Verde.png" height="40" /><p>@item.linea  - @item.contenido</p>
-                            }
-                        </li>
-                    </ul>
-                }
             </div>
         </div>
     </div>

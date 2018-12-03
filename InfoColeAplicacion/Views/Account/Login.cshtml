@@ -1,6 +1,5 @@
 ﻿@using InfoColeAplicacion.Models
 @model LoginViewModel
-<div style="height: 70px"></div>
 @{
     ViewBag.Title = "Iniciar sesión";
 }
@@ -10,7 +9,7 @@
         <section id="loginForm">
             @if (ViewBag.urlOrigen == "https://localhost:44349/Comentario")
             {
-                <h2 style="color: red; text-align:center">@ViewBag.message</h2>
+                <h4 style="font-family: Verdana; color: red; text-align:center">@ViewBag.message</h4>
             }
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {

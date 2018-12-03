@@ -18,33 +18,33 @@
             </div>
 
             <div class="modal-body">
-                <h5>¿Esta seguro que desea eliminar este mensaje?</h5>
-                    <dl class="dl-horizontal">
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Contenido)
-                        </dt>
+                <p style="font-family:Verdana">¿Esta seguro que desea eliminar este mensaje?</p>
+                <dl class="dl-horizontal">
 
-                        <dd>
-                            @Html.DisplayFor(model => model.Contenido)
-                        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Tipo)
+                    </dt>
 
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Fecha)
-                        </dt>
+                    <dd class="ml-3">
+                        @ViewBag.Tipo
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Contenido)
+                    </dt>
 
-                        <dd>
-                            @Html.DisplayFor(model => model.Fecha)
-                        </dd>
+                    <dd  class="ml-3">
+                        @Html.DisplayFor(model => model.Contenido)
+                    </dd>
 
-                        <dt>
-                            @Html.DisplayNameFor(model => model.Tipo)
-                        </dt>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Fecha)
+                    </dt>
 
-                        <dd>
-                            @ViewBag.Tipo
-                        </dd>
+                    <dd  class="ml-3">
+                        @Html.DisplayFor(model => model.Fecha)
+                    </dd>
 
-                    </dl>
+                </dl>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" aria-label="Close" style="color: white">Cancelar</button>
                         <input type="submit" id="deleteButton" value="Eliminar" class="btn btn-sm btn-danger" />
