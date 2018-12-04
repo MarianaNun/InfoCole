@@ -82,7 +82,7 @@
                     <li class="nav-item btn btn-outline-secondary mr-1 my-1 p-0">
                         <a class="nav-link" href="@Url.Action("Index", "Comentario")">
                             <img src="~/Images/Home/chat.png" height="35" style="margin-right:0" />
-                            Comentarios
+                            Comunidad
                         </a>
                     </li>
                     <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
@@ -106,14 +106,14 @@
                     <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
                         <a class="nav-link" href="@Url.Action("Contact", "Home")">
                             <img src="~/Images/Home/News.png" height="35" />
-                            Noticia
+                            Noticias
                         </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav float-right">
                     @if (User.Identity.IsAuthenticated )
                     {
-                            if (ViewBag.Title == "Comentarios")
+                            if (ViewBag.Title == "Comentarios" || ViewBag.Title == "Historial")
                             {
                             <li class="nav-item btn btn-outline-secondary mr-1 my-1  p-0">
                                 <img src="~/Images/Comentario/ChatAdd.png" height="35" />
