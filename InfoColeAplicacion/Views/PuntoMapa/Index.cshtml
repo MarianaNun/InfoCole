@@ -45,10 +45,17 @@
             startPos = position;
             map = new google.maps.Map(
                 document.getElementById('map'), { zoom: 16, center: { lat: startPos.coords.latitude, lng: startPos.coords.longitude } });
+            CargarMapa();
 
-            var url = "@Url.Action("GetLocations", "PuntoMapa")";
+        }
+
+        navigator.geolocation.getCurrentPosition(geoSuccess);
+
+
+        function CargarMapa() {
+            let url = "@Url.Action("GetLocations", "PuntoMapa")";
             $.get(url).done(
-                function (data, status) {
+                function (data) {
                     //console.log(data);
                     for (var i = 0; i < data.length; i++) {
                         let latitud = parseFloat(data[i].Lat);
@@ -62,7 +69,7 @@
                         var tipo = data[i].TipoPuntoMapaId;
                         var nombre = data[i].Nombre;
                         var descripcion = data[i].Descripcion;
-                        console.log(data[i].Tipo);
+                        
                         
                         google.maps.event.addListener(punto, 'click', (function (punto, puntoId,nombre,tipo,descripcion) {
                             return function () {
@@ -70,7 +77,6 @@
                                 selectedMarker.Nombre = nombre;
                                 selectedMarker.PuntoMapaId = puntoId;
                                 selectedMarker.TipoPuntoMapaId = tipo;
-                                console.log(selectedMarker.Tipo);
                                 selectedMarker.Marker = punto;
 
                                 $('#nombre').val(selectedMarker.Nombre);
@@ -90,17 +96,14 @@
                     alert("Ajax call failed");
                 }
             );
-
         }
-
-        navigator.geolocation.getCurrentPosition(geoSuccess);
 
         $('#editar').click(function (e) {
 
-            var url = "@Url.Action("EditarPunto", "PuntoMapa")";
-            var punto = {};
+            let url = "@Url.Action("EditarPunto", "PuntoMapa")";
+            let punto = {};
             punto.PuntoMapaId = selectedMarker.PuntoMapaId;
-            punto.Nombre = selectedMarker.Nombre;
+            punto.Nombre = $('#nombre').val();
             punto.Long = selectedMarker.Marker.position.lng();
             punto.Lat = selectedMarker.Marker.position.lat();         
             punto.TipoPuntoMapaId = $('#tipo').val() * 1;
@@ -114,6 +117,8 @@
                     $('#borrar').attr('disabled', 'disabled');
                     $('#cancelar').attr('disabled', 'disabled');
                     alert(mensaje);
+                    LimpiarMapa();
+                    CargarMapa();
                 }
             ).fail(
                 function () {
@@ -150,13 +155,22 @@
             $('#editar').attr('disabled', 'disabled');
             $('#borrar').attr('disabled', 'disabled');
             $('#cancelar').attr('disabled', 'disabled');
-
+            LimpiarCampos();
         })
     }
     function LimpiarCampos() {
         $('#nombre').val('');
         $('#descripcion').val('');
 
+    }
+
+    function LimpiarMapa() {
+        for (let i = 0; i < marker.length; i++) {
+            marker[i].map = null;
+            marker[i] = null;
+
+        }
+        marker = [];
     }
 </script>
 

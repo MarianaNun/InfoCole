@@ -949,3 +949,4 @@ D:\InfoCole\Proyecto\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.dl
 D:\InfoCole\Proyecto\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.pdb
 D:\InfoCole\Proyecto\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertasUpdate.resources
 D:\InfoCole\Proyecto\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.csprojAssemblyReference.cache
+E:\ProyectosASP\InfoCole\InfoCole\InfoCole\InfoColeAplicacion\obj\Debug\InfoColeAplicacion.Migrations.AlertasUpdate.resources

@@ -33,10 +33,11 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownListFor(model => model.TipoPuntoMapaId, (List<SelectListItem>)ViewBag.Tipos, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.DropDownListFor(model => model.TipoPuntoMapaId, (List<SelectListItem>)ViewBag.Tipos, new { htmlAttributes = new { @class = "form-control elements" } })
             @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
         </div>
     </div>
+    <button id="remover" disabled class="btn btn-primary btn-lg btn-block elements">Remover punto</button>
 
 
 
@@ -53,7 +54,7 @@
 }
 
 <div>
-    @Html.ActionLink("Volver al listado", "Index")
+    @Html.ActionLink("Volver al listado", "Index",null, new {@class = "btn btn-primary elements"})
 </div>
 
 @section Scripts {
@@ -95,26 +96,28 @@
             e.preventDefault();
 
             //var token = $('input[name=__RequestVerificationToken]').val();
-            let latitud = marker.position.lat();
-            let longitud = marker.position.lng();
-            var point = {
-                Nombre: $("#Nombre").val()
-            };
-            point.Lat = latitud;
-            point.Long = longitud;
-            point.Descripcion = $("#Descripcion").val();
-            point.TipoPuntoMapaId = $('#TipoPuntoMapaId').val() * 1;
-
-            var url = "@Url.Action("Create", "PuntoMapa")";
-            $.post(url, point).done(
-                function (mensaje) {
-                    alert(mensaje);
-                }
-            ).fail(
-                function () {
-                    alert("Ajax call failed");
-                }
-            );
+            if (marker != null) {
+                let latitud = marker.position.lat();
+                let longitud = marker.position.lng();
+                let point = {
+                    Nombre: $("#Nombre").val(),
+                    Lat: latitud,
+                    Long: longitud,
+                    Descripcion: $("#Descripcion").val(),
+                    TipoPuntoMapaId: $('#TipoPuntoMapaId').val() * 1
+                };
+                let url = "@Url.Action("Create", "PuntoMapa")";
+                $.post(url, point).done(
+                    () => (mensaje) {
+                        alert(mensaje);
+                    }
+                ).fail(
+                    ()=> {alert("Ajax call failed"); }
+                );
+            }
+            else {
+                alert("Debe indicar un punto en el mapa");
+            }
 
         })
 
@@ -125,9 +128,14 @@
                 position: location,
                 map: map
             });
-
-
         }
+
+        $('#remover').click(
+            () => {
+                marker.map = null;
+                marker = null;
+            }
+        )
 
 
     </script>
